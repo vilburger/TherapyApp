@@ -1,0 +1,29 @@
+table,
+th,
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    width: 40px;
+}
+
+/* mikä on oikea tapa asettaa koko siten, että se tulee järkevästi? sotkeeko pixelinä annetut arvot? */
+tr {
+    height: 40px;
+}
+
+/* mikä on rem?*/
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* näihin ois kiva jotkut reunat/taustat */
+.card {
+    padding: 1rem;
+    border-radius: 12px;
+}

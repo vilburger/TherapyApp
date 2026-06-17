@@ -3,24 +3,25 @@
 
 <head>
     <title>Terapiasovellus</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
     <main class="dashboard">
         <section class="welcome">
-            <h1>Tervehdys</h1>
+            <h1>Hauska nähdä taas, Vilma!</h1>
         </section>
 
         <section class="daily card">
-            <h2>Päivän tehtävä:</h2>
-            <p></p>
-            <button title="Paina merkitäksesi tehtävän suoritetuksi">Merkitse valmiiksi</button>
+            <h2>Päivän tehtävä: venyttely</h2>
+            <p>Kuvaus: tee eilen sovittuja venytyksiä 5 minuutin ajan.</p>
+            <button id="done" title="Paina merkitäksesi tehtävän suoritetuksi">Merkitse valmiiksi</button>
         </section>
 
         <section class="weekly card">
             <h2>Viikkonäkymä</h2>
-            <table>
+            <table class="week-table">
                 <tr>
                     <th>ma</th>
                     <th>ti</th>
@@ -31,15 +32,20 @@
                     <th>su</th>
                 </tr>
                 <tr>
-                    <td>x</td>
+                    <td></td>
+                    <td><span class="dot done"></span></td>
+                    <td></td>
+                    <td><span class="dot"></span></td>
                     <td></td>
                     <td></td>
-                    <td></td>
-                    <td>x</td>
-                    <td></td>
-                    <td></td>
+                    <td><span class="dot"></span></td>
                 </tr>
             </table>
+        </section>
+
+        <section class="progress card">
+            <h2>Edistyminen</h2>
+            <p>1/3 tehtävää suoritettu</p>
         </section>
 
         <section class="taskManagement card">

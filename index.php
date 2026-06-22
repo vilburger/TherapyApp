@@ -14,52 +14,55 @@
             <h1>Hauska nähdä taas, Vilma!</h1>
         </section>
 
-        <section class="daily card">
-            <!-- korjaa h6 p:ks -->
-            <h6>Torstai 18.6.2026</h6>
-            <h2>Päivän tehtävä: venyttely</h2>
+        <section class="daily card" aria-labelledby="daily-task-heading">
+            <p aria-label="Päivämäärä">Torstai 18.6.2026</p>
+            <h2 id="daily-task-heading">Päivän tehtävä: venyttely</h2>
             <p>Kuvaus: tee eilen sovittuja venytyksiä 5 minuutin ajan.</p>
-            <button id="done" title="Paina merkitäksesi tehtävän suoritetuksi">Merkitse valmiiksi</button>
+            <button
+                id="done"
+                aria-label="Merkitse päivän tehtävä suoritetuksi">Merkitse valmiiksi</button>
         </section>
 
         <section class="weekly card">
             <h2>Viikkonäkymä</h2>
 
-            <!-- erottele thead ja body - tutki vaik et miks -->
-            <table class="week-table">
-                <tr>
-                    <th>ma</th>
-                    <th>ti</th>
-                    <th>ke</th>
-                    <th>to</th>
-                    <th>pe</th>
-                    <th>la</th>
-                    <th>su</th>
-                </tr>
-                <!-- lisää aria labelit! -->
-                <tr>
-                    <td></td>
-                    <td><span class="dot done"></span></td>
-                    <td></td>
-                    <td><span class="dot"></span></td>
-                    <td></td>
-                    <td></td>
-                    <td><span class="dot"></span></td>
-                </tr>
+            <table class="week-table"
+                aria-label="Viikon tehtävien suoritusnäkymä">
+                <thead>
+                    <tr>
+                        <th>ma</th>
+                        <th>ti</th>
+                        <th>ke</th>
+                        <th>to</th>
+                        <th>pe</th>
+                        <th>la</th>
+                        <th>su</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td aria-label="Tehtävä suoritettu"><span class="dot done" aria-hidden="true"></span></td>
+                        <td></td>
+                        <td aria-label="Tehtävä suorittamatta"><span class="dot" aria-hidden="true"></span></td>
+                        <td></td>
+                        <td></td>
+                        <td aria-label="Tehtävä suorittamatta"><span class="dot" aria-hidden="true"></span></td>
+                    </tr>
+                </tbody>
             </table>
         </section>
 
-        <section class="progress card">
-            <h2>Edistyminen</h2>
+        <section class="progress card" aria-labelledby="progress-heading">
+            <h2 id="progress-heading">Edistyminen</h2>
 
-            <!-- tänne myös aria-labelit:
-             <div class="progress-container"
-            role="progressbar"
-            aria-valuenow="33"
-            aria-valuemin="0"
-            aria-valuemax="100">
-            -->
-            <div class="progress-container">
+            <div class="progress-container"
+                role="progressbar"
+                aria-valuenow="33"
+                aria-valuemin="0"
+                aria-valuemax="100"
+                aria-label="Viikon tehtävien eteneminen">
                 <div class="progress-bar">
                     <!-- span class="prog-text">33%</span -->
                 </div>
@@ -67,28 +70,31 @@
             <p>1/3 tehtävää suoritettu</p>
         </section>
 
-        <!-- korjaa kebab-case sk-ma -->
-        <section class="taskManagement card">
+        <section class="task-management card">
             <h2>Tehtävienhallinta</h2>
 
-            <!-- tänne kans head ja body -->
-            <table class="task-table">
-                <tr>
-                    <th>Aktiiviset tehtäväsi</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-                <tr>
-                    <td>venyttely</td>
-                    <td>
-                        <button>Muokkaa</button>
-                    </td>
-                    <td>
-                        <button>Poista</button>
-                    </td>
-                </tr>
+            <table class="task-table"
+                aria-label="Aktiiviset tehtävät">
+                <thead>
+                    <tr>
+                        <th>Aktiiviset tehtäväsi</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>venyttely</td>
+                        <td>
+                            <button aria-label="Muokkaa tehtävää">Muokkaa</button>
+                        </td>
+                        <td>
+                            <button aria-label="Poista tehtävä">Poista</button>
+                        </td>
+                    </tr>
+                </tbody>
             </table>
-            <button id="add">Lisää tehtävä</button>
+            <button id="add" aria-label="Lisää uusi tehtävä">Lisää tehtävä</button>
         </section>
     </main>
 </body>

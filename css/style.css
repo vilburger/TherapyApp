@@ -19,15 +19,13 @@ td:first-child {
     border-left: 0;
 }
 
-/* mikä on oikea tapa asettaa koko siten, että se tulee järkevästi? sotkeeko pixelinä annetut arvot? */
-/* käytä mielummin rem */
+
 tr {
-    height: 40px;
+    height: 2.5rem;
 }
 
 th {
     border-bottom: 1px solid #8aa986;
-
 }
 
 body {
@@ -54,9 +52,6 @@ body {
 
 h1 {
     font-size: 4rem;
-    /* marginit on väärin. ne ei atm tee mitään. poista? */
-    margin-top: 5;
-    margin-bottom: 5;
 }
 
 h2 {
@@ -65,7 +60,7 @@ h2 {
     margin-bottom: 0.75rem;
 }
 
-h6 {
+.daily p {
     font-size: 1.5rem;
     margin-top: 0;
     margin-bottom: 0.75rem;
@@ -194,10 +189,13 @@ p {
     ja
 
     width: 100%;
+
+    padding: 0.2rem 3.4rem;
     */
     #done {
         font-size: 1rem;
-        padding: 0.2rem 3.4rem;
+        padding: 0.5rem 1rem;
+        width: 100%;
     }
 
     .dot {

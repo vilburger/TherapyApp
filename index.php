@@ -19,7 +19,7 @@
             <h2 id="daily-task-heading">Päivän tehtävä: venyttely</h2>
             <p>Kuvaus: tee eilen sovittuja venytyksiä 5 minuutin ajan.</p>
             <button
-                id="done"
+                id="markdone_button"
                 aria-label="Merkitse päivän tehtävä suoritetuksi">Merkitse valmiiksi</button>
         </section>
 
@@ -94,9 +94,22 @@
                     </tr>
                 </tbody>
             </table>
-            <button id="add" aria-label="Lisää uusi tehtävä">Lisää tehtävä</button>
+            <button id="add_button" aria-label="Lisää uusi tehtävä">Lisää tehtävä</button>
         </section>
+
+        <!-- pitääkö tän olla jossain eri paikassa? -->
+        <div id="successPopup" class="popup">
+            <div class="popup-content">
+                <h3>Tehtävä suoritettu</h3>
+                <p id="popupMessage">Wau! Taas yksi tehtävä suoritettu! Olet paras!</p>
+                <button id="closePopup">Sulje</button>
+            </div>
+
+        </div>
     </main>
+
+
+    <script src="js/script.js"></script>
 </body>
 
 </html>

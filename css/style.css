@@ -70,7 +70,7 @@ p {
     font-size: 1.5rem;
 }
 
-#markdone_button {
+#completeButton {
     font-size: 1.2rem;
     padding: 0.4rem 5.5rem;
     background-color: #c7dcc4;
@@ -144,7 +144,7 @@ p {
     border: 1px solid #8aa986;
 }
 
-#add_button {
+#addButton {
     font-size: 1.2rem;
     padding: 0.1rem 2rem;
     margin-top: 1rem;
@@ -180,6 +180,70 @@ p {
     border-radius: 10px;
 
     text-align: center;
+}
+
+#taskPopup {
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.4);
+
+    justify-content: center;
+    align-items: center;
+}
+
+#deletePopup {
+    display: none;
+
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0,0,0,0.4);
+
+    justify-content: center;
+    align-items: center;
+}
+
+#taskForm input[type="text"],
+#taskForm input[type="date"],
+#taskForm textarea,
+#taskForm select {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 1rem;
+   
+}
+
+#taskDescription {
+    min-height: 120px;
+    resize: verical;
+}
+
+.popup-content {
+    font-size: 1rem;
+     text-align: left;
+}
+
+#daySelection label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+#daySelection {
+    display: none;
 }
 
 /* mobiilille breakpoint */
@@ -221,7 +285,7 @@ p {
 
     padding: 0.2rem 3.4rem;
     */
-    #markdone_button {
+    #completeButton {
         font-size: 1rem;
         padding: 0.5rem 1rem;
         width: 100%;
@@ -251,7 +315,7 @@ p {
         margin: 0;
     }
 
-    #add_button {
+    #addButton {
         font-size: 0.8rem;
         padding: 0.1rem 1rem;
         margin-top: 1rem;

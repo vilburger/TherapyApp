@@ -12,6 +12,14 @@ const cancelButton = document.querySelectorAll(".cancelButton");
 const popups = document.querySelectorAll(".popup");
 const recurrenceOptions = document.querySelectorAll('input[name="recurrence"]');
 const daySelection = document.getElementById("daySelection");
+const form = document.getElementById("taskForm");
+const dailyRadio = document.querySelector('input[value="daily"]');
+const customRadio = document.querySelector('input[value="custom"]');
+const recurrenceGroup = document.querySelector('.recurrence-options');
+const progressBar = document.querySelector(".progress-bar");
+const progressContainer = document.querySelector(".progress-container");
+const progressText = document.getElementById("progressText");
+const progressPercent = document.getElementById("progressPercent");
 
 //Viestit
 const messages = [
@@ -21,13 +29,30 @@ const messages = [
     "Olet edistynyt hienosti!"
 ];
 
+//mock data
+const mockTask = {
+    name: "Venyttely",
+    description: "Tee venytyksiä 5 minuuttia",
+    recurrence: "custom",
+    days: ["ma", "ke", "pe"],
+    startDate: "2026-06-01",
+    endDate: "2026-06-30"
+};
+
+let completedTasks = 0;
+let totalTasks = 3;
+
 
 //tehdään Merkitse valmiiksi napista klikattava
 completeButton.addEventListener("click", function () {
     //teksti vaihtuu
     completeButton.textContent = "Tehty";
     //ei voi klikata uudestaan
-    completeButton.disabled = true;
+   
+
+    //edistymisen päivitys
+    completedTasks++;
+    updateProgress();
 
     //valitaan randomilla viesti
     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -59,18 +84,19 @@ document.addEventListener("keydown", function(event) {
 //Lisää-nappia voi klikata
 addButton.addEventListener("click", function() {
     taskPopupTitle.textContent = "Uusi tehtävä";
-
     taskForm.reset();
 
+    updateRecurrenceUI();
     taskPopup.style.display = "flex";
 });
 //Muokkaa-nappia voi klikata
 editButton.addEventListener("click", function() {
     taskPopupTitle.textContent = "Muokkaa tehtävää";
 
-    taskName.value = "Venyttely";
+    fillEditForm(mockTask);
+    setRecurrenceUI(mockTask);
 
-    taskDescription.value = "Tee venytyksiä 5 minuuttia";
+    updateRecurrenceUI();
 
     taskPopup.style.display = "flex";
 });
@@ -94,15 +120,18 @@ popups.forEach(function(popup) {
     });
 });
 
-recurrenceOptions.forEach(function(option) {
-    option.addEventListener("change", function() {
-        if (this.value === "custom") {
-            daySelection.style.display = "flex";
-        } else {
-            daySelection.style.display = "none";
-        }
-    });
+
+recurrenceOptions.forEach(option => {
+    option.addEventListener("change", updateRecurrenceUI);
 });
+
+form.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    closeAllPopups();
+
+    completeButton.disabled = true;
+})
 
 // funktiot
 function closePopup() {
@@ -119,3 +148,49 @@ function closeAllPopups() {
     document.body.style.overflow="auto";
 }
 
+function fillEditForm(task) {
+    taskName.value = task.name;
+    taskDescription.value = task.description;
+
+    document.querySelectorAll("#daySelection input").forEach(cb => {
+        cb.checked = task.days.includes(cb.value);
+    });
+
+    startDate.value = task.startDate;
+    endDate.value = task.endDate;
+}
+
+function updateRecurrenceUI() {
+    if(dailyRadio.checked) {
+        daySelection.classList.add("dimmed");
+        recurrenceGroup.classList.remove("dimmed");
+    }
+
+    if (customRadio.checked) {
+        daySelection.classList.remove("dimmed");
+        recurrenceGroup.classList.remove("dimmed");
+    }
+}
+
+function setRecurrenceUI(task) {
+    document.querySelector(`input[value="${task.recurrence}"]`).checked = true;
+
+    updateRecurrenceUI();
+}
+
+function updateProgress() {
+    const percent = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
+
+    progressBar.style.width = percent + "%";
+
+    //ARIA
+    progressContainer.setAttribute("aria-valuenow", percent);
+
+    //teksti
+    progressText.textContent = `${completedTasks}/${totalTasks} tehtävää suoritettu`;
+
+    progressPercent.textContent = percent + "%";
+}
+
+//alustus
+updateProgress();

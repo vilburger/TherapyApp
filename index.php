@@ -19,7 +19,7 @@
             <h2 id="daily-task-heading">Päivän tehtävä: venyttely</h2>
             <p>Kuvaus: tee eilen sovittuja venytyksiä 5 minuutin ajan.</p>
             <button
-                id="markdone_button"
+                id="completeButton"
                 aria-label="Merkitse päivän tehtävä suoritetuksi">Merkitse valmiiksi</button>
         </section>
 
@@ -30,25 +30,25 @@
                 aria-label="Viikon tehtävien suoritusnäkymä">
                 <thead>
                     <tr>
-                        <th>ma</th>
-                        <th>ti</th>
-                        <th>ke</th>
-                        <th>to</th>
-                        <th>pe</th>
-                        <th>la</th>
-                        <th>su</th>
+                        <th data-day="1">ma</th>
+                        <th data-day="2">ti</th>
+                        <th data-day="3">ke</th>
+                        <th data-day="4">to</th>
+                        <th data-day="5">pe</th>
+                        <th data-day="6">la</th>
+                        <th data-day="0">su</th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td></td>
-                        <td aria-label="Tehtävä suoritettu"><span class="dot done" aria-hidden="true"></span></td>
-                        <td></td>
-                        <td aria-label="Tehtävä suorittamatta"><span class="dot" aria-hidden="true"></span></td>
-                        <td></td>
-                        <td></td>
-                        <td aria-label="Tehtävä suorittamatta"><span class="dot" aria-hidden="true"></span></td>
+                    <tr id="weekRow">
+                        <td data-day="1"></td>
+                        <td data-day="2" aria-label="Tehtävä suoritettu"><span class="dot done" aria-hidden="true"></span></td>
+                        <td data-day="3"></td>
+                        <td data-day="4" aria-label="Tehtävä suorittamatta"><span class="dot" aria-hidden="true"></span></td>
+                        <td data-day="5"></td>
+                        <td data-day="6"></td>
+                        <td data-day="0" aria-label="Tehtävä suorittamatta"><span class="dot" aria-hidden="true"></span></td>
                     </tr>
                 </tbody>
             </table>
@@ -56,6 +56,7 @@
 
         <section class="progress card" aria-labelledby="progress-heading">
             <h2 id="progress-heading">Edistyminen</h2>
+            <h3>Tehtävä: venyttely</h3>
 
             <div class="progress-container"
                 role="progressbar"
@@ -63,11 +64,11 @@
                 aria-valuemin="0"
                 aria-valuemax="100"
                 aria-label="Viikon tehtävien eteneminen">
-                <div class="progress-bar">
-                    <!-- span class="prog-text">33%</span -->
-                </div>
+                <div class="progress-bar"></div>
+
+                <span id="progressPercent">0%</span>
             </div>
-            <p>1/3 tehtävää suoritettu</p>
+            <p id="progressText">1/3 tehtävää suoritettu</p>
         </section>
 
         <section class="task-management card">
@@ -82,19 +83,19 @@
                         <th></th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="taskTableBody">
                     <tr>
                         <td>venyttely</td>
                         <td>
-                            <button aria-label="Muokkaa tehtävää">Muokkaa</button>
+                            <button class="editButton" aria-label="Muokkaa tehtävää">Muokkaa</button>
                         </td>
                         <td>
-                            <button aria-label="Poista tehtävä">Poista</button>
+                            <button class="deleteButton" aria-label="Poista tehtävä">Poista</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
-            <button id="add_button" aria-label="Lisää uusi tehtävä">Lisää tehtävä</button>
+            <button id="addButton" aria-label="Lisää uusi tehtävä">Lisää tehtävä</button>
         </section>
 
         <!-- pitääkö tän olla jossain eri paikassa? -->
@@ -108,6 +109,63 @@
         </div>
     </main>
 
+
+
+    <!--KOTONA LISÄTYT!!!!!!-->
+    <div id="taskPopup" class="popup">
+        <div class="popup-content">
+            <h3 id="taskPopupTitle">Uusi tehtävä</h3>
+            <form id="taskForm">
+                <label for="taskName">Tehtävän nimi:</label>
+                <input type="text" id="taskName" name="taskName" required>
+
+                <label for="taskDescription">Tehtävän kuvaus:</label>
+                <textarea id="taskDescription" name="taskDescription"></textarea>
+
+                <div class="form-group">
+                    <label>Valitse toistuvuus</label>
+
+                    <div class="recurrence-options">
+                        <label>
+                            <input type="radio" name="recurrence" value="daily" checked>Päivittäin
+                        </label>
+
+                        <label>
+                            <input type="radio" name="recurrence" value="custom">Valitut viikonpäivät
+                        </label>
+                    </div>
+
+                    <div id="daySelection">
+                        <label><input type="checkbox" value="ma">Ma</label> <br>
+                        <label><input type="checkbox" value="ti">Ti</label> <br>
+                        <label><input type="checkbox" value="ke">Ke</label> <br>
+                        <label><input type="checkbox" value="to">To</label> <br>
+                        <label><input type="checkbox" value="pe">Pe</label> <br>
+                        <label><input type="checkbox" value="la">La</label> <br>
+                        <label><input type="checkbox" value="su">Su</label> <br>
+                    </div>
+                </div>
+
+                <label for="startDate">Aloituspäivä</label>
+                <input type="date" id="startDate">
+
+                <label for="endDate">Lopetuspäivä</label>
+                <input type="date" id="endDate"> <br>
+
+                <button type="submit">Tallenna</button>
+                <button type="button" class="cancelButton">Peruuta</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="deletePopup" class="popup">
+        <div class="popup-content">
+            <h3>Poista tehtävä</h3>
+            <p>Haluatko varmasti poistaa tämän tehtävän?</p>
+            <button id="confirmDelete">Poista</button>
+            <button type="button" class="cancelButton">Peruuta</button>
+        </div>
+    </div>
 
     <script src="js/script.js"></script>
 </body>

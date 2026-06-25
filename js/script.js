@@ -20,6 +20,8 @@ const progressBar = document.querySelector(".progress-bar");
 const progressContainer = document.querySelector(".progress-container");
 const progressText = document.getElementById("progressText");
 const progressPercent = document.getElementById("progressPercent");
+const taskTableBody = document.getElementById("taskTableBody");
+const weekRow = document.getElementById("weekRow");
 
 //Viestit
 const messages = [
@@ -29,18 +31,41 @@ const messages = [
     "Olet edistynyt hienosti!"
 ];
 
+/*
 //mock data
 const mockTask = {
     name: "Venyttely",
     description: "Tee venytyksiä 5 minuuttia",
     recurrence: "custom",
-    days: ["ma", "ke", "pe"],
+    days: ["ma", "to", "pe"],
     startDate: "2026-06-01",
     endDate: "2026-06-30"
 };
+*/
+
+const dayMap = {
+    ma: 1,
+    ti: 2,
+    ke: 3,
+    to: 4,
+    pe: 5,
+    la: 6,
+    su: 0
+}
 
 let completedTasks = 0;
 let totalTasks = 3;
+
+let tasks = [
+    {
+        name: "venyttely",
+        description: "Tee venytyksiä 5 minuuttia",
+        recurrence: "custom",
+        days: ["ma", "to", "pe"],
+        startDate: "2026-06-01",
+        endDate: "2026-06-30"
+    }
+];
 
 
 //tehdään Merkitse valmiiksi napista klikattava
@@ -48,11 +73,14 @@ completeButton.addEventListener("click", function () {
     //teksti vaihtuu
     completeButton.textContent = "Tehty";
     //ei voi klikata uudestaan
-   
+
 
     //edistymisen päivitys
     completedTasks++;
     updateProgress();
+
+    //viikkonäkymän päivitys
+    markTodayDone();
 
     //valitaan randomilla viesti
     const randomMessage = messages[Math.floor(Math.random() * messages.length)];
@@ -68,21 +96,21 @@ completeButton.addEventListener("click", function () {
 closeButton.addEventListener("click", closePopup);
 
 //ikkunan voi sulkea klikkaamalla taustaa pelkän napin sijaan
-popup.addEventListener("click", function(event) {
+popup.addEventListener("click", function (event) {
     if (event.target === popup) {
         closePopup();
     }
 });
 
 //ikkunan voi sulkea myös esc-näppäimellä
-document.addEventListener("keydown", function(event) {
+document.addEventListener("keydown", function (event) {
     if (event.key === "Escape") {
         closeAllPopups();
     }
 })
 
 //Lisää-nappia voi klikata
-addButton.addEventListener("click", function() {
+addButton.addEventListener("click", function () {
     taskPopupTitle.textContent = "Uusi tehtävä";
     taskForm.reset();
 
@@ -90,10 +118,10 @@ addButton.addEventListener("click", function() {
     taskPopup.style.display = "flex";
 });
 //Muokkaa-nappia voi klikata
-editButton.addEventListener("click", function() {
+editButton.addEventListener("click", function () {
     taskPopupTitle.textContent = "Muokkaa tehtävää";
 
-    fillEditForm(mockTask);
+    fillEditForm(mockTask); //Korjaa tää!
     setRecurrenceUI(mockTask);
 
     updateRecurrenceUI();
@@ -101,19 +129,19 @@ editButton.addEventListener("click", function() {
     taskPopup.style.display = "flex";
 });
 //Poista-nappia voi klikata
-deleteButton.addEventListener("click", function() {
-    deletePopup.style.display="flex";
+deleteButton.addEventListener("click", function () {
+    deletePopup.style.display = "flex";
 });
 //Käydään läpi kaikki dokumentin Peruuta-napit, ja lisätään niille sulkemistoiminto (eli asetetaan display noneksi)
-cancelButton.forEach(function(button) {
-    button.addEventListener("click", function() {
+cancelButton.forEach(function (button) {
+    button.addEventListener("click", function () {
         taskPopup.style.display = "none";
-        deletePopup.style.display="none";
+        deletePopup.style.display = "none";
     });
 });
 
-popups.forEach(function(popup) {
-    popup.addEventListener("click", function(event) {
+popups.forEach(function (popup) {
+    popup.addEventListener("click", function (event) {
         if (event.target === popup) {
             closeAllPopups();
         }
@@ -125,12 +153,26 @@ recurrenceOptions.forEach(option => {
     option.addEventListener("change", updateRecurrenceUI);
 });
 
-form.addEventListener("submit", function(event) {
+form.addEventListener("submit", function (event) {
     event.preventDefault();
 
-    closeAllPopups();
+    const recurrence = document.querySelector('input[name="recurrence"]:checked').value;
 
-    completeButton.disabled = true;
+    const task = {
+        name: taskName.value,
+        description: taskDescription.value,
+        recurrence: recurrence,
+        days: recurrence === "daily" ? ["ma", "ti", "ke", "to", "pe", "la", "su"] : getSelectedDays(),
+        startDate: startDate.value,
+        endDate: endDate.value
+    };
+
+    tasks.push(task);
+
+    renderTaskTable();
+    renderWeekView();
+
+    closeAllPopups();
 })
 
 // funktiot
@@ -145,7 +187,7 @@ function closeAllPopups() {
     taskPopup.style.display = "none";
     deletePopup.style.display = "none";
 
-    document.body.style.overflow="auto";
+    document.body.style.overflow = "auto";
 }
 
 function fillEditForm(task) {
@@ -161,7 +203,7 @@ function fillEditForm(task) {
 }
 
 function updateRecurrenceUI() {
-    if(dailyRadio.checked) {
+    if (dailyRadio.checked) {
         daySelection.classList.add("dimmed");
         recurrenceGroup.classList.remove("dimmed");
     }
@@ -192,5 +234,78 @@ function updateProgress() {
     progressPercent.textContent = percent + "%";
 }
 
+function highlightToday() {
+    const today = new Date().getDay();
+
+    document.querySelectorAll(`[data-day="${today}"]`).forEach(element => {
+        element.classList.add("today");
+    })
+}
+
+function markTodayDone() {
+    const today = new Date().getDay();
+
+    const taskDays = tasks.flatMap(task => task.days ? task.days.map(d => dayMap[d]) : []
+    );
+
+    if (!taskDays.includes(today)) {
+        return;
+    }
+
+    const dot = document.querySelector(`td[data-day="${today}"] .dot`);
+
+    console.log("Löytynyt dot:", dot);
+
+    if (dot) {
+        dot.classList.add("done");
+    }
+}
+
+function getSelectedDays() {
+    return Array.from(document.querySelectorAll('#daySelection input:checked')).map(cb => cb.value);
+}
+
+function renderTaskTable() {
+    taskTableBody.innerHTML = "";
+
+    tasks.forEach(task => {
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+        <td>${task.name}</td>
+        <td><button class="editButton">Muokkaa</button></td>
+        <td><button class="deleteButton">Poista</button></td>
+        `;
+
+        taskTableBody.appendChild(row);
+    })
+}
+
+function renderWeekView() {
+    weekRow.innerHTML = "";
+
+    const days = [1, 2, 3, 4, 5, 6, 0];
+
+    days.forEach(day => {
+        const cell = document.createElement("td");
+        cell.dataset.day = day;
+
+        const hasTask = tasks.some(task => task.days.map(d => dayMap[d]).includes(day)
+        );
+
+        if (hasTask) {
+            cell.innerHTML = '<span class="dot"></span>';
+        }
+
+        weekRow.appendChild(cell);
+    });
+
+    highlightToday();
+}
+
 //alustus
 updateProgress();
+highlightToday();
+
+renderTaskTable();
+renderWeekView();

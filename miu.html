@@ -5,7 +5,16 @@
     <meta charset="UTF-8">
     <title>Terapiasovellus</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/tables.css">
+    <link rel="stylesheet" href="css/progress.css">
+    <link rel="stylesheet" href="css/daily.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/utilities.css">
 </head>
 
 <body>
@@ -15,12 +24,19 @@
         </section>
 
         <section class="daily card" aria-labelledby="daily-task-heading">
-            <p aria-label="Päivämäärä">Torstai 18.6.2026</p>
-            <h2 id="daily-task-heading"></h2>
-            <p id="daily-task-description"></p>
-            <button
-                id="completeButton"
-                aria-label="Merkitse päivän tehtävä suoritetuksi">Merkitse valmiiksi</button>
+
+            <p id="currentDate" aria-label="Päivämäärä"></p>
+            <h2 id="daily-task-heading">Tämän päivän tehtävät</h2>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="todayProgressBar"></div>
+                <span id="todayProgressText">0%</span>
+            </div>
+
+            <p id="todayProgressInfo"></p>
+
+            <div id="todayTasks"></div>
+
         </section>
 
         <section class="weekly card">
@@ -90,7 +106,10 @@
             <button id="addButton" aria-label="Lisää uusi tehtävä">Lisää tehtävä</button>
         </section>
 
-        <!-- pitääkö tän olla jossain eri paikassa? -->
+        </main>
+
+<div id="popupContainer">
+
         <div id="successPopup" class="popup">
             <div class="popup-content">
                 <h3>Tehtävä suoritettu</h3>
@@ -99,11 +118,7 @@
             </div>
 
         </div>
-    </main>
-
-
-
-    <!--KOTONA LISÄTYT!!!!!!-->
+  
     <div id="taskPopup" class="popup">
         <div class="popup-content">
             <h3 id="taskPopupTitle">Uusi tehtävä</h3>
@@ -157,6 +172,8 @@
             <button id="confirmDelete">Poista</button>
             <button type="button" class="cancelButton">Peruuta</button>
         </div>
+    </div>
+
     </div>
 
     <script src="js/script.js"></script>

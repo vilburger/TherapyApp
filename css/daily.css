@@ -1,0 +1,10 @@
+/* ===================================
+        DAILY TASKS
+======================================*/
+.today-task {
+    border-top: 1px solid #8aa986;
+    padding: 1rem 0;
+}
+.today-task:first-child {
+    border-top: none;
+}

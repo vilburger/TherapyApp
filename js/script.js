@@ -1,5 +1,5 @@
 //Elementit
-const completeButton = document.getElementById("completeButton");
+//const completeButton = document.getElementById("completeButton");
 const popup = document.getElementById("successPopup");
 const closeButton = document.getElementById("closePopup");
 const messageElement = document.getElementById("popupMessage");
@@ -22,8 +22,12 @@ const progressText = document.getElementById("progressText");
 const progressPercent = document.getElementById("progressPercent");
 const taskTableBody = document.getElementById("taskTableBody");
 const weekBody = document.getElementById("weekBody");
-const dailyTaskHeading = document.getElementById("daily-task-heading");
-const dailyTaskDescription = document.getElementById("daily-task-description");
+//const dailyTaskHeading = document.getElementById("daily-task-heading");
+//const dailyTaskDescription = document.getElementById("daily-task-description");
+const todayTasks = document.getElementById("todayTasks");
+const todayProgressBar = document.getElementById("todayProgressBar");
+const todayProgressText = document.getElementById("todayProgressText");
+const todayProgressInfo = document.getElementById("todayProgressInfo");
 
 //Viestit
 const messages = [
@@ -66,12 +70,20 @@ let tasks = [
         days: ["ma", "to", "pe"],
         startDate: "2026-06-01",
         endDate: "2026-06-30"
+    },
+    {
+        name: "juoksu",
+        description: "Käy juoksemassa töiden jälkeen",
+        recurrence: "custom",
+        days: ["ma", "ti", "ke", "to", "pe"],
+        startDate: "2026-06-01",
+        endDate: "2026-06-30"
     }
 ];
 
 
 //tehdään Merkitse valmiiksi napista klikattava
-completeButton.addEventListener("click", function () {
+/*completeButton.addEventListener("click", function () {
     //teksti vaihtuu
     completeButton.textContent = "Tehty";
     //ei voi klikata uudestaan
@@ -92,7 +104,7 @@ completeButton.addEventListener("click", function () {
     popup.style.display = "block";
 
     document.body.style.overflow = "hidden";
-});
+});*/
 
 //Sulje-napille toiminto
 closeButton.addEventListener("click", closePopup);
@@ -315,7 +327,7 @@ function renderWeekView() {
 
     highlightToday();
 }
-
+/*
 function renderDailyTask() {
     const today = new Date().getDay();
 
@@ -331,6 +343,30 @@ function renderDailyTask() {
 
     dailyTaskHeading.textContent = "Päivän tehtävä: " + task.name;
     dailyTaskDescription.textContent = task.description;
+}*/
+
+function renderTodayTasks() {
+    todayTasks.innerHTML = "";
+
+    const today = new Date().getDay();
+
+    const todayTaskList = tasks.filter(task =>
+        task.days.map(day => dayMap[day]).includes(today)
+    );
+
+    todayTaskList.forEach(task => {
+        const card = document.createElement("div");
+
+        card.classList.add("today-task");
+
+        card.innerHTML = `
+        <h3>${task.name}</h3>
+        <p>${task.description}</p>
+        <button>Merkitse tehdyksi</button>
+        `;
+
+        todayTasks.appendChild(card);
+    });
 }
 
 //alustus
@@ -339,4 +375,5 @@ highlightToday();
 
 renderTaskTable();
 renderWeekView();
-renderDailyTask();
+//renderDailyTask();
+renderTodayTasks();

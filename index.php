@@ -16,8 +16,8 @@
 
         <section class="daily card" aria-labelledby="daily-task-heading">
             <p aria-label="Päivämäärä">Torstai 18.6.2026</p>
-            <h2 id="daily-task-heading">Päivän tehtävä: venyttely</h2>
-            <p>Kuvaus: tee eilen sovittuja venytyksiä 5 minuutin ajan.</p>
+            <h2 id="daily-task-heading"></h2>
+            <p id="daily-task-description"></p>
             <button
                 id="completeButton"
                 aria-label="Merkitse päivän tehtävä suoritetuksi">Merkitse valmiiksi</button>
@@ -30,6 +30,7 @@
                 aria-label="Viikon tehtävien suoritusnäkymä">
                 <thead>
                     <tr>
+                        <th class="task-name">Tehtävä</th>
                         <th data-day="1">ma</th>
                         <th data-day="2">ti</th>
                         <th data-day="3">ke</th>
@@ -40,23 +41,14 @@
                     </tr>
                 </thead>
 
-                <tbody>
-                    <tr id="weekRow">
-                        <td data-day="1"></td>
-                        <td data-day="2" aria-label="Tehtävä suoritettu"><span class="dot done" aria-hidden="true"></span></td>
-                        <td data-day="3"></td>
-                        <td data-day="4" aria-label="Tehtävä suorittamatta"><span class="dot" aria-hidden="true"></span></td>
-                        <td data-day="5"></td>
-                        <td data-day="6"></td>
-                        <td data-day="0" aria-label="Tehtävä suorittamatta"><span class="dot" aria-hidden="true"></span></td>
-                    </tr>
+                <tbody id="weekBody">
                 </tbody>
             </table>
         </section>
 
         <section class="progress card" aria-labelledby="progress-heading">
             <h2 id="progress-heading">Edistyminen</h2>
-            <h3>Tehtävä: venyttely</h3>
+            <h3></h3>
 
             <div class="progress-container"
                 role="progressbar"

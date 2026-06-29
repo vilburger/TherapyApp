@@ -33,7 +33,28 @@ tr {
 }
 
 th {
-    border-bottom: 1.5px solid #104a08;
+    border-bottom: 2px solid #104a08;
+}
+
+td {
+    border-top: 2px solid #104a08;
+}
+
+.week-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.week-table th,
+.week-table td {
+    padding: 0.5rem;
+    text-align: center;
+}
+
+.task-name th {
+    text-align: left;
+    min-width: 140px;
+    padding-left: 0rem;
 }
 
 body {

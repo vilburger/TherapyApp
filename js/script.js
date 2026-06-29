@@ -21,7 +21,9 @@ const progressContainer = document.querySelector(".progress-container");
 const progressText = document.getElementById("progressText");
 const progressPercent = document.getElementById("progressPercent");
 const taskTableBody = document.getElementById("taskTableBody");
-const weekRow = document.getElementById("weekRow");
+const weekBody = document.getElementById("weekBody");
+const dailyTaskHeading = document.getElementById("daily-task-heading");
+const dailyTaskDescription = document.getElementById("daily-task-description");
 
 //Viestit
 const messages = [
@@ -282,25 +284,53 @@ function renderTaskTable() {
 }
 
 function renderWeekView() {
-    weekRow.innerHTML = "";
+    weekBody.innerHTML = "";
 
     const days = [1, 2, 3, 4, 5, 6, 0];
 
-    days.forEach(day => {
-        const cell = document.createElement("td");
-        cell.dataset.day = day;
+    tasks.forEach(task => {
+        const row = document.createElement("tr");
 
-        const hasTask = tasks.some(task => task.days.map(d => dayMap[d]).includes(day)
-        );
+        const nameCell = document.createElement("td");
+        nameCell.textContent = task.name;
+        nameCell.classList.add("task-name");
 
-        if (hasTask) {
-            cell.innerHTML = '<span class="dot"></span>';
-        }
+        row.appendChild(nameCell);
 
-        weekRow.appendChild(cell);
+        days.forEach(day => {
+            const cell = document.createElement("td");
+            cell.dataset.day = day;
+
+            const taskDays = task.days.map(d => dayMap[d]);
+
+            if (taskDays.includes(day)) {
+                cell.innerHTML = '<span class="dot"></span>';
+            }
+            row.appendChild(cell);
+        });
+
+        weekBody.appendChild(row);
+
     });
 
     highlightToday();
+}
+
+function renderDailyTask() {
+    const today = new Date().getDay();
+
+    const task = tasks.find(task =>
+        task.days.map(d => dayMap[d]).includes(today)
+    );
+
+    if (!task) {
+        dailyTaskHeading.textContent = "Ei tehtävää tälle päivälle";
+        dailyTaskDescription.textContent = "";
+        return;
+    }
+
+    dailyTaskHeading.textContent = "Päivän tehtävä: " + task.name;
+    dailyTaskDescription.textContent = task.description;
 }
 
 //alustus
@@ -309,3 +339,4 @@ highlightToday();
 
 renderTaskTable();
 renderWeekView();
+renderDailyTask();

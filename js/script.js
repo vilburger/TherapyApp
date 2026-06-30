@@ -1,12 +1,12 @@
 //Elementit
-//const completeButton = document.getElementById("completeButton");
 const popup = document.getElementById("successPopup");
 const closeButton = document.getElementById("closePopup");
 const messageElement = document.getElementById("popupMessage");
 const addButton = document.getElementById("addButton");
-const editButton = document.querySelector(".editButton");
-const deleteButton = document.querySelector(".deleteButton");
+//const editButton = document.querySelector(".editButton");
+//const deleteButton = document.querySelector(".deleteButton");
 const deletePopup = document.getElementById("deletePopup");
+const confirmDelete = document.getElementById("confirmDelete");
 const taskPopup = document.getElementById("taskPopup");
 const cancelButton = document.querySelectorAll(".cancelButton");
 const popups = document.querySelectorAll(".popup");
@@ -16,18 +16,14 @@ const form = document.getElementById("taskForm");
 const dailyRadio = document.querySelector('input[value="daily"]');
 const customRadio = document.querySelector('input[value="custom"]');
 const recurrenceGroup = document.querySelector('.recurrence-options');
-const progressBar = document.querySelector(".progress-bar");
-const progressContainer = document.querySelector(".progress-container");
-const progressText = document.getElementById("progressText");
-const progressPercent = document.getElementById("progressPercent");
 const taskTableBody = document.getElementById("taskTableBody");
 const weekBody = document.getElementById("weekBody");
-//const dailyTaskHeading = document.getElementById("daily-task-heading");
-//const dailyTaskDescription = document.getElementById("daily-task-description");
 const todayTasks = document.getElementById("todayTasks");
 const todayProgressBar = document.getElementById("todayProgressBar");
 const todayProgressText = document.getElementById("todayProgressText");
 const todayProgressInfo = document.getElementById("todayProgressInfo");
+const currentDate = document.getElementById("currentDate");
+
 
 //Viestit
 const messages = [
@@ -37,17 +33,6 @@ const messages = [
     "Olet edistynyt hienosti!"
 ];
 
-/*
-//mock data
-const mockTask = {
-    name: "Venyttely",
-    description: "Tee venytyksiä 5 minuuttia",
-    recurrence: "custom",
-    days: ["ma", "to", "pe"],
-    startDate: "2026-06-01",
-    endDate: "2026-06-30"
-};
-*/
 
 const dayMap = {
     ma: 1,
@@ -59,9 +44,6 @@ const dayMap = {
     su: 0
 }
 
-let completedTasks = 0;
-let totalTasks = 3;
-
 let tasks = [
     {
         name: "venyttely",
@@ -69,7 +51,8 @@ let tasks = [
         recurrence: "custom",
         days: ["ma", "to", "pe"],
         startDate: "2026-06-01",
-        endDate: "2026-06-30"
+        endDate: "2026-06-30",
+        completedDays: []
     },
     {
         name: "juoksu",
@@ -77,34 +60,13 @@ let tasks = [
         recurrence: "custom",
         days: ["ma", "ti", "ke", "to", "pe"],
         startDate: "2026-06-01",
-        endDate: "2026-06-30"
+        endDate: "2026-06-30",
+        completedDays: []
     }
 ];
 
-
-//tehdään Merkitse valmiiksi napista klikattava
-/*completeButton.addEventListener("click", function () {
-    //teksti vaihtuu
-    completeButton.textContent = "Tehty";
-    //ei voi klikata uudestaan
-
-
-    //edistymisen päivitys
-    completedTasks++;
-    updateProgress();
-
-    //viikkonäkymän päivitys
-    markTodayDone();
-
-    //valitaan randomilla viesti
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    //asetetaan viesti tekstielementtiin
-    messageElement.textContent = randomMessage;
-
-    popup.style.display = "block";
-
-    document.body.style.overflow = "hidden";
-});*/
+let editingTask = null;
+let deletingTask = null;
 
 //Sulje-napille toiminto
 closeButton.addEventListener("click", closePopup);
@@ -125,12 +87,28 @@ document.addEventListener("keydown", function (event) {
 
 //Lisää-nappia voi klikata
 addButton.addEventListener("click", function () {
+    editingTask = null;
+
     taskPopupTitle.textContent = "Uusi tehtävä";
     taskForm.reset();
 
     updateRecurrenceUI();
     taskPopup.style.display = "flex";
 });
+
+confirmDelete.addEventListener("click", function() {
+    tasks = tasks.filter(t => t !== deletingTask);
+
+    deletingTask = null;
+
+    renderTaskTable();
+    renderWeekView();
+    renderTodayTasks();
+    updateTodayProgress();
+
+    closeAllPopups();
+});
+/*
 //Muokkaa-nappia voi klikata
 editButton.addEventListener("click", function () {
     taskPopupTitle.textContent = "Muokkaa tehtävää";
@@ -146,6 +124,8 @@ editButton.addEventListener("click", function () {
 deleteButton.addEventListener("click", function () {
     deletePopup.style.display = "flex";
 });
+*/
+
 //Käydään läpi kaikki dokumentin Peruuta-napit, ja lisätään niille sulkemistoiminto (eli asetetaan display noneksi)
 cancelButton.forEach(function (button) {
     button.addEventListener("click", function () {
@@ -178,13 +158,25 @@ form.addEventListener("submit", function (event) {
         recurrence: recurrence,
         days: recurrence === "daily" ? ["ma", "ti", "ke", "to", "pe", "la", "su"] : getSelectedDays(),
         startDate: startDate.value,
-        endDate: endDate.value
+        endDate: endDate.value,
+
+        completedDays: editingTask 
+            ? editingTask.completedDays 
+            :  []
     };
 
-    tasks.push(task);
+    if(editingTask) {
+        Object.assign(editingTask, task);
+        editingTask = null;
+    } else {
+        tasks.push(task);
+    }
+    
 
     renderTaskTable();
     renderWeekView();
+    renderTodayTasks();
+    updateTodayProgress();
 
     closeAllPopups();
 })
@@ -234,45 +226,12 @@ function setRecurrenceUI(task) {
     updateRecurrenceUI();
 }
 
-function updateProgress() {
-    const percent = totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
-
-    progressBar.style.width = percent + "%";
-
-    //ARIA
-    progressContainer.setAttribute("aria-valuenow", percent);
-
-    //teksti
-    progressText.textContent = `${completedTasks}/${totalTasks} tehtävää suoritettu`;
-
-    progressPercent.textContent = percent + "%";
-}
-
 function highlightToday() {
     const today = new Date().getDay();
 
     document.querySelectorAll(`[data-day="${today}"]`).forEach(element => {
         element.classList.add("today");
     })
-}
-
-function markTodayDone() {
-    const today = new Date().getDay();
-
-    const taskDays = tasks.flatMap(task => task.days ? task.days.map(d => dayMap[d]) : []
-    );
-
-    if (!taskDays.includes(today)) {
-        return;
-    }
-
-    const dot = document.querySelector(`td[data-day="${today}"] .dot`);
-
-    console.log("Löytynyt dot:", dot);
-
-    if (dot) {
-        dot.classList.add("done");
-    }
 }
 
 function getSelectedDays() {
@@ -291,8 +250,59 @@ function renderTaskTable() {
         <td><button class="deleteButton">Poista</button></td>
         `;
 
+        //Haetaan juuri tämän rivin painikkeet
+        const editButton = row.querySelector(".editButton");
+        const deleteButton = row.querySelector(".deleteButton");
+
+        //Muokkaa
+        editButton.addEventListener("click", function () {
+            editingTask = task;
+
+            taskPopupTitle.textContent = "Muokkaa tehtävää";
+
+            fillEditForm(task);
+            setRecurrenceUI(task);
+
+            updateRecurrenceUI();
+
+            taskPopup.style.display = "flex";
+        });
+
+        //Poista (toistaiseksi vain avaa popupin)
+        deleteButton.addEventListener("click", function() {
+            deletingTask = task;
+
+            deletePopup.style.display = "flex";
+        });
+
         taskTableBody.appendChild(row);
     })
+}
+
+function updateTodayProgress() {
+    const today = new Date().getDay();
+
+    const todaysTasks = tasks.filter(task => task.days.map(d => dayMap[d]).includes(today));
+
+    const completed = todaysTasks.filter(task => 
+        task.completedDays.includes(today)
+    ).length;
+
+    const total = todaysTasks.length;
+
+    const percent = total === 0 ? 0 : Math.round(completed / total * 100);
+
+    todayProgressBar.style.width = percent + "%";
+
+    todayProgressText.textContent = percent + "%";
+
+    todayProgressInfo.textContent = `${completed}/${total} tehtävää tehty`;
+
+    console.log({
+    completed,
+    total,
+    percent
+});
 }
 
 function renderWeekView() {
@@ -316,7 +326,10 @@ function renderWeekView() {
             const taskDays = task.days.map(d => dayMap[d]);
 
             if (taskDays.includes(day)) {
-                cell.innerHTML = '<span class="dot"></span>';
+                const done = task.completedDays.includes(day);
+
+                cell.innerHTML = `
+                <span class="dot ${done ? "done" : ""}"></span>`;
             }
             row.appendChild(cell);
         });
@@ -327,23 +340,7 @@ function renderWeekView() {
 
     highlightToday();
 }
-/*
-function renderDailyTask() {
-    const today = new Date().getDay();
 
-    const task = tasks.find(task =>
-        task.days.map(d => dayMap[d]).includes(today)
-    );
-
-    if (!task) {
-        dailyTaskHeading.textContent = "Ei tehtävää tälle päivälle";
-        dailyTaskDescription.textContent = "";
-        return;
-    }
-
-    dailyTaskHeading.textContent = "Päivän tehtävä: " + task.name;
-    dailyTaskDescription.textContent = task.description;
-}*/
 
 function renderTodayTasks() {
     todayTasks.innerHTML = "";
@@ -359,21 +356,67 @@ function renderTodayTasks() {
 
         card.classList.add("today-task");
 
+        const doneToday = task.completedDays.includes(today);
+
         card.innerHTML = `
         <h3>${task.name}</h3>
         <p>${task.description}</p>
-        <button>Merkitse tehdyksi</button>
+
+        <button 
+        class="completeButton"
+        data-task="${task.name}">
+        ${doneToday ? "Tehty" : "Merkitse tehdyksi"}
+        </button>
         `;
 
         todayTasks.appendChild(card);
+
+        const button = card.querySelector(".completeButton");
+
+        button.addEventListener("click", function() {
+            completeTask(task);
+        });
     });
 }
 
+function completeTask(task) {
+    const today = new Date().getDay();
+
+    if (task.completedDays.includes(today)) {
+       return;
+    }
+
+    task.completedDays.push(today);
+
+    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+    messageElement.textContent = randomMessage;
+    popup.style.display = "block";
+
+    renderTodayTasks();
+    renderWeekView();
+    updateTodayProgress();
+}
+
+function renderCurrentDate() {
+    const today = new Date();
+
+    const options = {
+        weekday: "long",
+        day: "numeric",
+        month: "numeric",
+        year: "numeric"
+    };
+
+    currentDate.textContent = today.toLocaleDateString("fi-FI", options);
+}
+
 //alustus
-updateProgress();
 highlightToday();
 
 renderTaskTable();
 renderWeekView();
-//renderDailyTask();
+
 renderTodayTasks();
+
+renderCurrentDate();
+updateTodayProgress();

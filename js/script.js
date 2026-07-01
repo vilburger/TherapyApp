@@ -96,7 +96,7 @@ addButton.addEventListener("click", function () {
     taskPopup.style.display = "flex";
 });
 
-confirmDelete.addEventListener("click", function() {
+confirmDelete.addEventListener("click", function () {
     tasks = tasks.filter(t => t !== deletingTask);
 
     deletingTask = null;
@@ -160,18 +160,18 @@ form.addEventListener("submit", function (event) {
         startDate: startDate.value,
         endDate: endDate.value,
 
-        completedDays: editingTask 
-            ? editingTask.completedDays 
-            :  []
+        completedDays: editingTask
+            ? editingTask.completedDays
+            : []
     };
 
-    if(editingTask) {
+    if (editingTask) {
         Object.assign(editingTask, task);
         editingTask = null;
     } else {
         tasks.push(task);
     }
-    
+
 
     renderTaskTable();
     renderWeekView();
@@ -269,7 +269,7 @@ function renderTaskTable() {
         });
 
         //Poista (toistaiseksi vain avaa popupin)
-        deleteButton.addEventListener("click", function() {
+        deleteButton.addEventListener("click", function () {
             deletingTask = task;
 
             deletePopup.style.display = "flex";
@@ -284,7 +284,7 @@ function updateTodayProgress() {
 
     const todaysTasks = tasks.filter(task => task.days.map(d => dayMap[d]).includes(today));
 
-    const completed = todaysTasks.filter(task => 
+    const completed = todaysTasks.filter(task =>
         task.completedDays.includes(today)
     ).length;
 
@@ -299,10 +299,10 @@ function updateTodayProgress() {
     todayProgressInfo.textContent = `${completed}/${total} tehtävää tehty`;
 
     console.log({
-    completed,
-    total,
-    percent
-});
+        completed,
+        total,
+        percent
+    });
 }
 
 function renderWeekView() {
@@ -359,8 +359,10 @@ function renderTodayTasks() {
         const doneToday = task.completedDays.includes(today);
 
         card.innerHTML = `
-        <h3>${task.name}</h3>
-        <p>${task.description}</p>
+        <div class="task-info">
+            <h3>${task.name}</h3>
+            <p>${task.description}</p>
+        </div>
 
         <button 
         class="completeButton"
@@ -373,7 +375,7 @@ function renderTodayTasks() {
 
         const button = card.querySelector(".completeButton");
 
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             completeTask(task);
         });
     });
@@ -383,7 +385,7 @@ function completeTask(task) {
     const today = new Date().getDay();
 
     if (task.completedDays.includes(today)) {
-       return;
+        return;
     }
 
     task.completedDays.push(today);

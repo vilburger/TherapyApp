@@ -5,7 +5,16 @@
     <meta charset="UTF-8">
     <title>Terapiasovellus</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/buttons.css">
+    <link rel="stylesheet" href="css/tables.css">
+    <link rel="stylesheet" href="css/progress.css">
+    <link rel="stylesheet" href="css/daily.css">
+    <link rel="stylesheet" href="css/forms.css">
+    <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/utilities.css">
 </head>
 
 <body>
@@ -15,12 +24,25 @@
         </section>
 
         <section class="daily card" aria-labelledby="daily-task-heading">
-            <p aria-label="Päivämäärä">Torstai 18.6.2026</p>
-            <h2 id="daily-task-heading"></h2>
-            <p id="daily-task-description"></p>
-            <button
-                id="completeButton"
-                aria-label="Merkitse päivän tehtävä suoritetuksi">Merkitse valmiiksi</button>
+
+            <p id="currentDate" aria-label="Päivämäärä"></p>
+            <h2 id="daily-task-heading">Tämän päivän tehtävät</h2>
+
+            <div id="todayTasks"></div>
+
+        </section>
+
+        <section class="progress card">
+
+            <h2>Päivän edistyminen</h2>
+
+            <div class="progress-container">
+                <div class="progress-bar" id="todayProgressBar"></div>
+                <span id="todayProgressText">0%</span>
+            </div>
+
+            <p id="todayProgressInfo"></p>
+
         </section>
 
         <section class="weekly card">
@@ -46,6 +68,7 @@
             </table>
         </section>
 
+        <!--
         <section class="progress card" aria-labelledby="progress-heading">
             <h2 id="progress-heading">Edistyminen</h2>
             <h3></h3>
@@ -62,6 +85,7 @@
             </div>
             <p id="progressText">1/3 tehtävää suoritettu</p>
         </section>
+        -->
 
         <section class="task-management card">
             <h2>Tehtävienhallinta</h2>
@@ -90,7 +114,10 @@
             <button id="addButton" aria-label="Lisää uusi tehtävä">Lisää tehtävä</button>
         </section>
 
-        <!-- pitääkö tän olla jossain eri paikassa? -->
+    </main>
+
+    <div id="popupContainer">
+
         <div id="successPopup" class="popup">
             <div class="popup-content">
                 <h3>Tehtävä suoritettu</h3>
@@ -99,64 +126,62 @@
             </div>
 
         </div>
-    </main>
 
+        <div id="taskPopup" class="popup">
+            <div class="popup-content">
+                <h3 id="taskPopupTitle">Uusi tehtävä</h3>
+                <form id="taskForm">
+                    <label for="taskName">Tehtävän nimi:</label>
+                    <input type="text" id="taskName" name="taskName" required>
 
+                    <label for="taskDescription">Tehtävän kuvaus:</label>
+                    <textarea id="taskDescription" name="taskDescription"></textarea>
 
-    <!--KOTONA LISÄTYT!!!!!!-->
-    <div id="taskPopup" class="popup">
-        <div class="popup-content">
-            <h3 id="taskPopupTitle">Uusi tehtävä</h3>
-            <form id="taskForm">
-                <label for="taskName">Tehtävän nimi:</label>
-                <input type="text" id="taskName" name="taskName" required>
+                    <div class="form-group">
+                        <label>Valitse toistuvuus</label>
 
-                <label for="taskDescription">Tehtävän kuvaus:</label>
-                <textarea id="taskDescription" name="taskDescription"></textarea>
+                        <div class="recurrence-options">
+                            <label>
+                                <input type="radio" name="recurrence" value="daily" checked>Päivittäin
+                            </label>
 
-                <div class="form-group">
-                    <label>Valitse toistuvuus</label>
+                            <label>
+                                <input type="radio" name="recurrence" value="custom">Valitut viikonpäivät
+                            </label>
+                        </div>
 
-                    <div class="recurrence-options">
-                        <label>
-                            <input type="radio" name="recurrence" value="daily" checked>Päivittäin
-                        </label>
-
-                        <label>
-                            <input type="radio" name="recurrence" value="custom">Valitut viikonpäivät
-                        </label>
+                        <div id="daySelection">
+                            <label><input type="checkbox" value="ma">Ma</label> <br>
+                            <label><input type="checkbox" value="ti">Ti</label> <br>
+                            <label><input type="checkbox" value="ke">Ke</label> <br>
+                            <label><input type="checkbox" value="to">To</label> <br>
+                            <label><input type="checkbox" value="pe">Pe</label> <br>
+                            <label><input type="checkbox" value="la">La</label> <br>
+                            <label><input type="checkbox" value="su">Su</label> <br>
+                        </div>
                     </div>
 
-                    <div id="daySelection">
-                        <label><input type="checkbox" value="ma">Ma</label> <br>
-                        <label><input type="checkbox" value="ti">Ti</label> <br>
-                        <label><input type="checkbox" value="ke">Ke</label> <br>
-                        <label><input type="checkbox" value="to">To</label> <br>
-                        <label><input type="checkbox" value="pe">Pe</label> <br>
-                        <label><input type="checkbox" value="la">La</label> <br>
-                        <label><input type="checkbox" value="su">Su</label> <br>
-                    </div>
-                </div>
+                    <label for="startDate">Aloituspäivä</label>
+                    <input type="date" id="startDate">
 
-                <label for="startDate">Aloituspäivä</label>
-                <input type="date" id="startDate">
+                    <label for="endDate">Lopetuspäivä</label>
+                    <input type="date" id="endDate"> <br>
 
-                <label for="endDate">Lopetuspäivä</label>
-                <input type="date" id="endDate"> <br>
+                    <button type="submit">Tallenna</button>
+                    <button type="button" class="cancelButton">Peruuta</button>
+                </form>
+            </div>
+        </div>
 
-                <button type="submit">Tallenna</button>
+        <div id="deletePopup" class="popup">
+            <div class="popup-content">
+                <h3>Poista tehtävä</h3>
+                <p>Haluatko varmasti poistaa tämän tehtävän?</p>
+                <button id="confirmDelete">Poista</button>
                 <button type="button" class="cancelButton">Peruuta</button>
-            </form>
+            </div>
         </div>
-    </div>
 
-    <div id="deletePopup" class="popup">
-        <div class="popup-content">
-            <h3>Poista tehtävä</h3>
-            <p>Haluatko varmasti poistaa tämän tehtävän?</p>
-            <button id="confirmDelete">Poista</button>
-            <button type="button" class="cancelButton">Peruuta</button>
-        </div>
     </div>
 
     <script src="js/script.js"></script>

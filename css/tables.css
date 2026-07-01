@@ -1,0 +1,90 @@
+/* ===================================
+        WEEK VIEW
+======================================*/
+
+table {
+    border-radius: 12px;
+}
+.week-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.week-table th,
+.week-table td {
+    padding: 0.5rem;
+    text-align: center;
+}
+
+th,
+td {
+    width: 40px;
+    font-size: 1.5rem;
+    padding: 0rem 3rem;
+    border-left: 1.5px solid #104a08;
+
+}
+
+tr {
+    height: 2.5rem;
+}
+
+th {
+    border-bottom: 2px solid #104a08;
+}
+
+td {
+    border-top: 2px solid #104a08;
+}
+.task-name th {
+    text-align: left;
+    min-width: 140px;
+    padding-left: 0rem;
+}
+.today {
+    background-color: #c7dcc4;
+}
+.dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 4px solid #104a08;
+    display: inline-block;
+    margin-left: 0.5rem;
+}
+
+.done {
+    background-color: #104a08;
+}
+
+/* ===================================
+        TASK TABLE
+======================================*/
+
+.task-table {
+    width: 100%;
+    table-layout: fixed;
+}
+
+.task-table th {
+    border-bottom: 3px solid #8aa986;
+}
+
+.task-table th,
+.task-table td {
+    font-size: 1.5rem;
+    width: 25%;
+    padding: 0;
+}
+
+.task-table th:first-child,
+.task-table td:first-child {
+    width: 50%;
+    text-align: left;
+}
+
+
+.task-table td:nth-child(2),
+.task-table td:nth-child(3) {
+    text-align: center;
+}

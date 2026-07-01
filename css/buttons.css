@@ -1,0 +1,50 @@
+/* ===================================
+            BUTTONS
+======================================*/
+button {
+    background-color: #c7dcc4;
+    transition: background-color 0.2s ease;
+}
+button:hover {
+    background-color: #ebfae8;
+}
+button:active {
+    transform: scale(0.98);
+}
+button:focus {
+    outline: none;
+}
+
+/* näppäinkäyttöä varten */
+button:focus-visible {
+    box-shadow: 0 0 0 3px rgba(16, 74, 8, 0.35);
+}
+
+.completeButton {
+    font-size: 1.2rem;
+    padding: 0.4rem 5.5rem;
+    border-radius: 12px;
+    border: 2px solid #8aa986;
+}
+#addButton {
+    font-size: 1.2rem;
+    padding: 0.1rem 2rem;
+    margin-top: 1rem;
+    border-radius: 12px;
+    border: 1px solid #8aa986;
+}
+
+.task-table button {
+    font-size: 1.2rem;
+    padding: 0.1rem 2rem;
+    margin: 0.4rem;
+    border-radius: 12px;
+    border: 1px solid #8aa986;
+}
+.popup-content button {
+    font-size: 1.2rem;
+    padding: 0.1rem 2rem;
+    margin: 0.4rem;
+    border-radius: 12px;
+    border: 1px solid #8aa986;
+}

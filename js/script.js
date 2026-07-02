@@ -296,13 +296,7 @@ function updateTodayProgress() {
 
     todayProgressText.textContent = percent + "%";
 
-    todayProgressInfo.textContent = `${completed}/${total} tehtävää tehty`;
-
-    console.log({
-        completed,
-        total,
-        percent
-    });
+    todayProgressInfo.textContent = `${completed}/${total} päivän tehtävistä tehty`;
 }
 
 function renderWeekView() {

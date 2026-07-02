@@ -68,25 +68,6 @@
             </table>
         </section>
 
-        <!--
-        <section class="progress card" aria-labelledby="progress-heading">
-            <h2 id="progress-heading">Edistyminen</h2>
-            <h3></h3>
-
-            <div class="progress-container"
-                role="progressbar"
-                aria-valuenow="33"
-                aria-valuemin="0"
-                aria-valuemax="100"
-                aria-label="Viikon tehtävien eteneminen">
-                <div class="progress-bar"></div>
-
-                <span id="progressPercent">0%</span>
-            </div>
-            <p id="progressText">1/3 tehtävää suoritettu</p>
-        </section>
-        -->
-
         <section class="task-management card">
             <h2>Tehtävienhallinta</h2>
 
@@ -100,15 +81,7 @@
                     </tr>
                 </thead>
                 <tbody id="taskTableBody">
-                    <tr>
-                        <td>venyttely</td>
-                        <td>
-                            <button class="editButton" aria-label="Muokkaa tehtävää">Muokkaa</button>
-                        </td>
-                        <td>
-                            <button class="deleteButton" aria-label="Poista tehtävä">Poista</button>
-                        </td>
-                    </tr>
+
                 </tbody>
             </table>
             <button id="addButton" aria-label="Lisää uusi tehtävä">Lisää tehtävä</button>
@@ -121,7 +94,7 @@
         <div id="successPopup" class="popup">
             <div class="popup-content">
                 <h3>Tehtävä suoritettu</h3>
-                <p id="popupMessage">Wau! Taas yksi tehtävä suoritettu! Olet paras!</p>
+                <p id="popupMessage"></p>
                 <button id="closePopup">Sulje</button>
             </div>
 
@@ -151,18 +124,18 @@
                         </div>
 
                         <div id="daySelection">
-                            <label><input type="checkbox" value="ma">Ma</label> <br>
-                            <label><input type="checkbox" value="ti">Ti</label> <br>
-                            <label><input type="checkbox" value="ke">Ke</label> <br>
-                            <label><input type="checkbox" value="to">To</label> <br>
-                            <label><input type="checkbox" value="pe">Pe</label> <br>
-                            <label><input type="checkbox" value="la">La</label> <br>
-                            <label><input type="checkbox" value="su">Su</label> <br>
+                            <label><input type="checkbox" value="ma">Ma</label>
+                            <label><input type="checkbox" value="ti">Ti</label>
+                            <label><input type="checkbox" value="ke">Ke</label>
+                            <label><input type="checkbox" value="to">To</label>
+                            <label><input type="checkbox" value="pe">Pe</label>
+                            <label><input type="checkbox" value="la">La</label>
+                            <label><input type="checkbox" value="su">Su</label>
                         </div>
                     </div>
 
                     <label for="startDate">Aloituspäivä</label>
-                    <input type="date" id="startDate">
+                    <input type="date" id="startDate" required>
 
                     <label for="endDate">Lopetuspäivä</label>
                     <input type="date" id="endDate"> <br>

@@ -157,7 +157,19 @@
 
     </div>
 
-    <script src="js/script.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/dom.js"></script>
+
+    <script src="js/utils.js"></script>
+
+    <script src="js/popup.js"></script>
+    <script src="js/task.js"></script>
+    <script src="js/ui.js"></script>
+
+    <script src="js/app.js"></script>
+    <script src="js/init.js"></script>
+
 </body>
 
 </html>

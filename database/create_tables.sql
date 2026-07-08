@@ -1,0 +1,45 @@
+CREATE TABLE USER
+(
+  userID INT NOT NULL,
+  userName VARCHAR(100) NOT NULL,
+  PRIMARY KEY (userID)
+);
+
+CREATE TABLE TASK
+(
+  taskID INT NOT NULL,
+  userID INT NOT NULL,
+  title VARCHAR(100) NOT NULL,
+  description TEXT,
+  recurrence VARCHAR(20) NOT NULL,
+  startDate DATE NOT NULL,
+  endDate DATE,
+  rewardPoints INT DEFAULT 0,
+
+  PRIMARY KEY (taskID),
+  FOREIGN KEY (userID) REFERENCES USER(userID)
+);
+
+CREATE TABLE TASKCOMPLETION
+(
+  compID INT NOT NULL,
+  userID INT NOT NULL,
+  taskID INT NOT NULL,
+  completedAt DATE NOT NULL,
+  earnedPoints INT DEFAULT(0),
+  
+
+  PRIMARY KEY (compID),
+  FOREIGN KEY (userID) REFERENCES USER(userID),
+  FOREIGN KEY (taskID) REFERENCES TASK(taskID)
+);
+
+CREATE TABLE TASKDAY 
+(
+    taskID INT NOT NULL,
+    weekday INT NOT NULL,
+
+    PRIMARY KEY(taskID, weekday),
+
+    FOREIGN KEY(taskID) REFERENCES TASK(taskID)
+);

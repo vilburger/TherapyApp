@@ -5,6 +5,7 @@
 table {
     border-radius: 12px;
 }
+
 .week-table {
     width: 100%;
     table-layout: fixed;
@@ -29,21 +30,14 @@ tr {
     height: 2.5rem;
 }
 
-th {
-    border-bottom: 2px solid #104a08;
-}
-
 td {
     border-top: 2px solid #104a08;
 }
-.task-name th {
-    text-align: left;
-    min-width: 140px;
-    padding-left: 0rem;
-}
+
 .today {
     background-color: #c7dcc4;
 }
+
 .dot {
     width: 14px;
     height: 14px;

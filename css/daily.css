@@ -2,9 +2,30 @@
         DAILY TASKS
 ======================================*/
 .today-task {
-    border-top: 1px solid #8aa986;
-    padding: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    border: 2px solid #8aa986;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-top: 2rem;
 }
-.today-task:first-child {
-    border-top: none;
+
+.task-info {
+    flex: 1;
+}
+
+#daily-task-heading {
+    margin-bottom: 0.5rem;
+}
+
+.today-task h3 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 0.25rem;
+}
+
+.today-task p {
+    font-size: 1.3rem;
 }

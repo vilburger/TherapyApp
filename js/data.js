@@ -1,0 +1,23 @@
+let tasks = [
+    {
+        name: "venyttely",
+        description: "Tee venytyksiä 5 minuuttia",
+        recurrence: "custom",
+        days: ["ma", "to", "pe"],
+        startDate: "2026-06-01",
+        endDate: "2026-06-30",
+        completedDays: []
+    },
+    {
+        name: "juoksu",
+        description: "Käy juoksemassa töiden jälkeen",
+        recurrence: "custom",
+        days: ["ma", "ti", "ke", "to", "pe"],
+        startDate: "2026-06-01",
+        endDate: "2026-06-30",
+        completedDays: []
+    }
+];
+
+let editingTask = null;
+let deletingTask = null;

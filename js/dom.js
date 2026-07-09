@@ -20,3 +20,4 @@ const todayProgressBar = document.getElementById("todayProgressBar");
 const todayProgressText = document.getElementById("todayProgressText");
 const todayProgressInfo = document.getElementById("todayProgressInfo");
 const currentDate = document.getElementById("currentDate");
+const daysError = document.getElementById("daysError");

@@ -58,6 +58,14 @@ form.addEventListener("submit", function (event) {
             : []
     };
 
+    if (recurrence === "custom" && getSelectedDays().length === 0) {
+        daysError.textContent = "Valitse vähintään yksi viikonpäivä.";
+        daysError.classList.remove("hidden");
+        return;
+    }
+
+    daysError.classList.add("hidden");
+
     if (editingTask) {
         Object.assign(editingTask, task);
         editingTask = null;
@@ -74,6 +82,11 @@ form.addEventListener("submit", function (event) {
     closeAllPopups();
 });
 
-recurrenceOptions.forEach(option => {
+/* recurrenceOptions.forEach(option => {
     option.addEventListener("change", updateRecurrenceUI);
-});
+}); */
+
+document.querySelectorAll("#daySelection input").forEach(cb => {
+    cb.addEventListener
+    //jatka tästä
+})

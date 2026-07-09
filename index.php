@@ -132,6 +132,8 @@
                             <label><input type="checkbox" value="la">La</label>
                             <label><input type="checkbox" value="su">Su</label>
                         </div>
+
+                        <div id="dayError" class="error-message hidden"></div>
                     </div>
 
                     <label for="startDate">Aloituspäivä</label>

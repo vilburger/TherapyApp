@@ -58,6 +58,19 @@ form.addEventListener("submit", function (event) {
             : []
     };
 
+    //fetch juttu PHP:n kanssa yhteistyötä varten
+    fetch("php/saveTask.php", { //lähetä pyyntö tiedostolle saveTask.php, joka sijaitsee php-kansiossa
+        method: "POST", //POST=lähetä uutta tietoa (koska lisätään uusi tehtävä)
+        headers: {
+            "Content-Type": "application/json"
+        }, //koko headers-osio kertoo PHP:lle, että sille lähetetään JSON-muotoista dataa
+        body: JSON.stringify(task) //muuttaa JavaScript olion tekstiksi
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        });
+
     if (recurrence === "custom" && getSelectedDays().length === 0) {
         daysError.textContent = "Valitse vähintään yksi viikonpäivä.";
         daysError.classList.remove("hidden");

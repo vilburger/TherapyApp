@@ -82,11 +82,14 @@ form.addEventListener("submit", function (event) {
     closeAllPopups();
 });
 
-/* recurrenceOptions.forEach(option => {
+recurrenceOptions.forEach(option => {
     option.addEventListener("change", updateRecurrenceUI);
-}); */
+});
 
 document.querySelectorAll("#daySelection input").forEach(cb => {
-    cb.addEventListener
-    //jatka tästä
-})
+    cb.addEventListener("change", () => {
+        if (getSelectedDays().length > 0) {
+            daysError.classList.add("hidden");
+        }
+    });
+});

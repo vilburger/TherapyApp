@@ -13,5 +13,6 @@ function completeTask(task) {
 
     renderTodayTasks();
     renderWeekView();
+    renderWeekList();
     updateTodayProgress();
 }

@@ -7,8 +7,13 @@ table {
 }
 
 .week-table {
+    display: table;
     width: 100%;
     table-layout: fixed;
+}
+
+.week-list {
+    display: none;
 }
 
 .week-table th,
@@ -32,7 +37,10 @@ tr {
 
 td {
     border-top: 2px solid #104a08;
+    hyphens: auto;
+    overflow-wrap: break-word;
 }
+
 
 .today {
     background-color: #c7dcc4;
@@ -58,10 +66,7 @@ td {
 .task-table {
     width: 100%;
     table-layout: fixed;
-}
-
-.task-table th {
-    border-bottom: 3px solid #8aa986;
+    display: table;
 }
 
 .task-table th,
@@ -81,4 +86,8 @@ td {
 .task-table td:nth-child(2),
 .task-table td:nth-child(3) {
     text-align: center;
+}
+
+.task-list {
+    display: none;
 }

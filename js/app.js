@@ -33,7 +33,11 @@ confirmDelete.addEventListener("click", function () {
     deletingTask = null;
 
     renderTaskTable();
+    renderTaskList();
+
     renderWeekView();
+    renderWeekList();
+
     renderTodayTasks();
     updateTodayProgress();
 
@@ -75,7 +79,11 @@ form.addEventListener("submit", function (event) {
 
 
     renderTaskTable();
+    renderTaskList();
+
     renderWeekView();
+    renderWeekList();
+
     renderTodayTasks();
     updateTodayProgress();
 

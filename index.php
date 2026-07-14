@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="css/popup.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/utilities.css">
+    <link rel="stylesheet" href="css/mobile.css">
 </head>
 
 <body>
@@ -66,6 +67,9 @@
                 <tbody id="weekBody">
                 </tbody>
             </table>
+
+            <!-- mobiilin listanäkymä -->
+            <div id="weekList" class="week-list"></div>
         </section>
 
         <section class="task-management card">
@@ -84,6 +88,13 @@
 
                 </tbody>
             </table>
+
+            <!-- listanäkymä mobiilia varten -->
+            <div class="task-list">
+                <h3 id="taskHeading">Aktiiviset tehtäväsi</h3>
+                <div id="taskList"></div>
+            </div>
+
             <button id="addButton" aria-label="Lisää uusi tehtävä">Lisää tehtävä</button>
         </section>
 

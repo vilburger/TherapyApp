@@ -68,7 +68,12 @@ form.addEventListener("submit", function (event) {
     })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            if (data.success) { //JSON muodostuu kahdesta osasta. Success = true
+                console.log(data.message); //message = Tehtävä tallennettiin onnistuneesti
+            } else {
+                console.error(data.message); //virheviesti
+            }
+
         });
 
     if (recurrence === "custom" && getSelectedDays().length === 0) {

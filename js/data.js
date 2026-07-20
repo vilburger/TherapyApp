@@ -1,3 +1,4 @@
+/*
 let tasks = [
     {
         title: "venyttely",
@@ -18,6 +19,24 @@ let tasks = [
         completedDays: []
     }
 ];
+*/
+let tasks = [];
 
 let editingTask = null;
 let deletingTask = null;
+
+//funktio, joka hakee tehtävät palvelimelta
+function loadTasks() {
+    //fetch juttu PHP:n kanssa yhteistyötä varten
+    fetch("php/getTasks.php")
+        .then(response => response.json())
+        .then(data => {
+            tasks = data; //tasks-taulukkoon asetetaan haettu data
+
+            //renderöinti-funktiot toimivat samoin kuin ennen
+            renderTaskTable();
+            renderWeekView();
+            renderTodayTasks();
+            updateTodayProgress();
+        });
+}

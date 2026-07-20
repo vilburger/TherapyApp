@@ -15,7 +15,7 @@ header("Content-Type: application/json"); //PHP kertoo tällä selaimelle, että
 
 
 //otetaan arvot talteen muuttujiin
-$title = $data["name"];
+$title = $data["title"];
 $description = $data["description"];
 $recurrence = $data["recurrence"];
 $startDate = $data["startDate"];

@@ -59,7 +59,7 @@ function renderWeekView() {
 
             const taskDays = task.days.map(d => dayMap[d]);
 
-            if (taskDays.includes(day)) {
+            if (taskDays.includes(day) || task.recurrence === "daily") {
                 const done = task.completedDays.includes(day);
 
                 cell.innerHTML = `
@@ -81,7 +81,7 @@ function renderTodayTasks() {
     const today = new Date().getDay();
 
     const todayTaskList = tasks.filter(task =>
-        task.days.map(day => dayMap[day]).includes(today)
+        task.days.map(day => dayMap[day]).includes(today) || task.recurrence === "daily"
     );
 
     todayTaskList.forEach(task => {
@@ -117,7 +117,7 @@ function renderTodayTasks() {
 function updateTodayProgress() {
     const today = new Date().getDay();
 
-    const todaysTasks = tasks.filter(task => task.days.map(d => dayMap[d]).includes(today));
+    const todaysTasks = tasks.filter(task => task.days.map(d => dayMap[d]).includes(today) || task.recurrence === "daily");
 
     const completed = todaysTasks.filter(task =>
         task.completedDays.includes(today)

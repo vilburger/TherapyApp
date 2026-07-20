@@ -32,10 +32,7 @@ confirmDelete.addEventListener("click", function () {
 
     deletingTask = null;
 
-    renderTaskTable();
-    renderWeekView();
-    renderTodayTasks();
-    updateTodayProgress();
+    loadTasks();
 
     closeAllPopups();
 });
@@ -70,11 +67,14 @@ form.addEventListener("submit", function (event) {
         .then(data => {
             if (data.success) { //JSON muodostuu kahdesta osasta. Success = true
                 console.log(data.message); //message = Tehtävä tallennettiin onnistuneesti
+                loadTasks();
             } else {
                 console.error(data.message); //virheviesti
             }
 
         });
+
+
 
     if (recurrence === "custom" && getSelectedDays().length === 0) {
         daysError.textContent = "Valitse vähintään yksi viikonpäivä.";
@@ -84,18 +84,7 @@ form.addEventListener("submit", function (event) {
 
     daysError.classList.add("hidden");
 
-    if (editingTask) {
-        Object.assign(editingTask, task);
-        editingTask = null;
-    } else {
-        tasks.push(task);
-    }
-
-
-    renderTaskTable();
-    renderWeekView();
-    renderTodayTasks();
-    updateTodayProgress();
+    loadTasks();
 
     closeAllPopups();
 });

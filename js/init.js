@@ -1,6 +1,3 @@
-renderTaskTable();
-renderWeekView();
-renderTodayTasks();
+loadTasks();
 renderCurrentDate();
-updateTodayProgress();
 highlightToday();

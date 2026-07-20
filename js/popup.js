@@ -36,7 +36,7 @@ function openDeletePopup() {
 }
 
 function fillEditForm(task) {
-    taskName.value = task.name;
+    taskTitle.value = task.title;
     taskDescription.value = task.description;
 
     document.querySelectorAll("#daySelection input").forEach(cb => {

@@ -46,7 +46,7 @@ form.addEventListener("submit", function (event) {
     const recurrence = document.querySelector('input[name="recurrence"]:checked').value;
 
     const task = {
-        name: taskName.value,
+        title: taskTitle.value,
         description: taskDescription.value,
         recurrence: recurrence,
         days: recurrence === "daily" ? ["ma", "ti", "ke", "to", "pe", "la", "su"] : getSelectedDays(),

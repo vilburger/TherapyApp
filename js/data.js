@@ -1,6 +1,6 @@
 let tasks = [
     {
-        name: "venyttely",
+        title: "venyttely",
         description: "Tee venytyksiä 5 minuuttia",
         recurrence: "custom",
         days: ["ma", "to", "pe"],
@@ -9,7 +9,7 @@ let tasks = [
         completedDays: []
     },
     {
-        name: "juoksu",
+        title: "juoksu",
         description: "Käy juoksemassa töiden jälkeen",
         recurrence: "custom",
         days: ["ma", "ti", "ke", "to", "pe"],

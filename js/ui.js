@@ -5,7 +5,7 @@ function renderTaskTable() {
         const row = document.createElement("tr");
 
         row.innerHTML = `
-        <td>${task.name}</td>
+        <td>${task.title}</td>
         <td><button class="editButton">Muokkaa</button></td>
         <td><button class="deleteButton">Poista</button></td>
         `;
@@ -93,7 +93,7 @@ function renderWeekView() {
         const row = document.createElement("tr");
 
         const nameCell = document.createElement("td");
-        nameCell.textContent = task.name;
+        nameCell.textContent = task.title;
         nameCell.classList.add("task-name");
 
         row.appendChild(nameCell);
@@ -104,7 +104,7 @@ function renderWeekView() {
 
             const taskDays = task.days.map(d => dayMap[d]);
 
-            if (taskDays.includes(day)) {
+            if (taskDays.includes(day) || task.recurrence === "daily") {
                 const done = task.completedDays.includes(day);
 
                 cell.innerHTML = `
@@ -179,7 +179,7 @@ function renderTodayTasks() {
     const today = new Date().getDay();
 
     const todayTaskList = tasks.filter(task =>
-        task.days.map(day => dayMap[day]).includes(today)
+        task.days.map(day => dayMap[day]).includes(today) || task.recurrence === "daily"
     );
 
     todayTaskList.forEach(task => {
@@ -191,13 +191,13 @@ function renderTodayTasks() {
 
         card.innerHTML = `
         <div class="task-info">
-            <h3>${task.name}</h3>
+            <h3>${task.title}</h3>
             <p>${task.description}</p>
         </div>
 
         <button 
         class="completeButton"
-        data-task="${task.name}">
+        data-task="${task.title}">
         ${doneToday ? "Tehty" : "Merkitse tehdyksi"}
         </button>
         `;
@@ -215,7 +215,7 @@ function renderTodayTasks() {
 function updateTodayProgress() {
     const today = new Date().getDay();
 
-    const todaysTasks = tasks.filter(task => task.days.map(d => dayMap[d]).includes(today));
+    const todaysTasks = tasks.filter(task => task.days.map(d => dayMap[d]).includes(today) || task.recurrence === "daily");
 
     const completed = todaysTasks.filter(task =>
         task.completedDays.includes(today)

@@ -115,8 +115,8 @@
             <div class="popup-content">
                 <h3 id="taskPopupTitle">Uusi tehtävä</h3>
                 <form id="taskForm">
-                    <label for="taskName">Tehtävän nimi:</label>
-                    <input type="text" id="taskName" name="taskName" required>
+                    <label for="taskTitle">Tehtävän nimi:</label>
+                    <input type="text" id="taskTitle" name="taskTitle" required>
 
                     <label for="taskDescription">Tehtävän kuvaus:</label>
                     <textarea id="taskDescription" name="taskDescription"></textarea>

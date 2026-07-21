@@ -28,20 +28,26 @@ addButton.addEventListener("click", function () {
 });
 
 confirmDelete.addEventListener("click", function () {
-    tasks = tasks.filter(t => t !== deletingTask);
+    fetch("php/deleteTask.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ taskID: deletingTask.taskID })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) { //JSON muodostuu kahdesta osasta. Success = true
+                console.log(data.message); //message = Tehtävä tallennettiin onnistuneesti
+                deletingTask = null;
+                loadTasks();
+                closeAllPopups();
+            } else {
+                console.error(data.message); //virheviesti
+            }
 
-    deletingTask = null;
+        });
 
-    renderTaskTable();
-    renderTaskList();
-
-    renderWeekView();
-    renderWeekList();
-
-    renderTodayTasks();
-    updateTodayProgress();
-
-    closeAllPopups();
 });
 
 form.addEventListener("submit", function (event) {
@@ -50,7 +56,7 @@ form.addEventListener("submit", function (event) {
     const recurrence = document.querySelector('input[name="recurrence"]:checked').value;
 
     const task = {
-        name: taskName.value,
+        title: taskTitle.value,
         description: taskDescription.value,
         recurrence: recurrence,
         days: recurrence === "daily" ? ["ma", "ti", "ke", "to", "pe", "la", "su"] : getSelectedDays(),
@@ -62,6 +68,35 @@ form.addEventListener("submit", function (event) {
             : []
     };
 
+    if (editingTask) {
+        task.taskID = editingTask.taskID;
+    }
+
+    console.log(task);
+
+    const url = editingTask
+        ? "php/updateTask.php"
+        : "php/saveTask.php";
+
+    //fetch juttu PHP:n kanssa yhteistyötä varten
+    fetch(url, { //lähetä pyyntö tiedostolle saveTask.php, joka sijaitsee php-kansiossa
+        method: "POST", //POST=lähetä uutta tietoa (koska lisätään uusi tehtävä)
+        headers: {
+            "Content-Type": "application/json"
+        }, //koko headers-osio kertoo PHP:lle, että sille lähetetään JSON-muotoista dataa
+        body: JSON.stringify(task) //muuttaa JavaScript olion tekstiksi
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) { //JSON muodostuu kahdesta osasta. Success = true
+                console.log(data.message); //message = Tehtävä tallennettiin onnistuneesti
+                loadTasks();
+            } else {
+                console.error(data.message); //virheviesti
+            }
+
+        });
+
     if (recurrence === "custom" && getSelectedDays().length === 0) {
         daysError.textContent = "Valitse vähintään yksi viikonpäivä.";
         daysError.classList.remove("hidden");
@@ -70,22 +105,7 @@ form.addEventListener("submit", function (event) {
 
     daysError.classList.add("hidden");
 
-    if (editingTask) {
-        Object.assign(editingTask, task);
-        editingTask = null;
-    } else {
-        tasks.push(task);
-    }
-
-
-    renderTaskTable();
-    renderTaskList();
-
-    renderWeekView();
-    renderWeekList();
-
-    renderTodayTasks();
-    updateTodayProgress();
+    loadTasks();
 
     closeAllPopups();
 });

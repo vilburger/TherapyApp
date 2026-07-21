@@ -28,13 +28,26 @@ addButton.addEventListener("click", function () {
 });
 
 confirmDelete.addEventListener("click", function () {
-    tasks = tasks.filter(t => t !== deletingTask);
+    fetch("php/deleteTask.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ taskID: deletingTask.taskID })
+    })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) { //JSON muodostuu kahdesta osasta. Success = true
+                console.log(data.message); //message = Tehtävä tallennettiin onnistuneesti
+                deletingTask = null;
+                loadTasks();
+                closeAllPopups();
+            } else {
+                console.error(data.message); //virheviesti
+            }
 
-    deletingTask = null;
+        });
 
-    loadTasks();
-
-    closeAllPopups();
 });
 
 form.addEventListener("submit", function (event) {

@@ -29,9 +29,17 @@ SET title = ?,
 WHERE taskID = ?
 ";
 
-$stmt = $pdo->prepare($sql);
+$sqlDelete = "
+DELETE FROM TASKDAY
+WHERE taskID = ?
+";
 
-
+$sqlInsert = "
+INSERT INTO TASKDAY
+(taskID, weekday)
+VALUES
+(?, ?)
+";
 
 try {
     $stmt = $pdo->prepare($sql);
@@ -45,9 +53,40 @@ try {
         $taskID
     ]);
 
+    $stmtDelete = $pdo->prepare($sqlDelete);
+
+    $stmtDelete->execute([
+        $taskID
+    ]);
+
+    if ($recurrence === "custom") {
+        //map päiviä varten
+        $dayMap = [
+            "ma" => 1,
+            "ti" => 2,
+            "ke" => 3,
+            "to" => 4,
+            "pe" => 5,
+            "la" => 6,
+            "su" => 0
+        ];
+
+        $stmtInsert = $pdo->prepare($sqlInsert);
+
+        //käydään päivät läpi
+        foreach ($data["days"] as $day) {
+            $weekday = $dayMap[$day];
+
+            $stmtInsert->execute([
+                $taskID,
+                $weekday
+            ]);
+        }
+    }
+
     echo json_encode([ //onnistumisviesti, jos execute() onnistuu
         "success" => true,
-        "message" => "Tehtävä tallennettiin onnistuneesti"
+        "message" => "Tehtävä päivitettiin onnistuneesti"
     ]);
 } catch (PDOException $e) { //jos epäonnistuu, kerrotaan mikä meni pieleen
     echo json_encode([

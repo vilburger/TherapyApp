@@ -39,6 +39,51 @@ function renderTaskTable() {
     })
 }
 
+function renderTaskList() {
+    const taskList = document.getElementById("taskList");
+
+    taskList.innerHTML = "";
+
+    tasks.forEach(task => {
+
+        const item = document.createElement("div");
+        item.classList.add("task-item");
+
+        item.innerHTML = `
+            <div class="task-title">${task.name}</div>
+
+            <div class="task-buttons">
+                <button class="editButton">Muokkaa</button>
+                <button class="deleteButton">Poista</button>
+            </div>
+        `;
+
+        const editButton = item.querySelector(".editButton");
+        const deleteButton = item.querySelector(".deleteButton");
+
+        editButton.addEventListener("click", function () {
+            editingTask = task;
+
+            taskPopupTitle.textContent = "Muokkaa tehtävää";
+
+            fillEditForm(task);
+            setRecurrenceUI(task);
+
+            updateRecurrenceUI();
+
+            taskPopup.style.display = "flex";
+        });
+
+        deleteButton.addEventListener("click", function () {
+            deletingTask = task;
+
+            deletePopup.style.display = "flex";
+        });
+
+        taskList.appendChild(item);
+    });
+}
+
 function renderWeekView() {
     weekBody.innerHTML = "";
 
@@ -73,6 +118,59 @@ function renderWeekView() {
     });
 
     highlightToday();
+}
+
+function renderWeekList() {
+    const weekList = document.getElementById("weekList");
+
+    weekList.innerHTML = "";
+
+    const days = [
+        { number: 1, label: "Ma" },
+        { number: 2, label: "Ti" },
+        { number: 3, label: "Ke" },
+        { number: 4, label: "To" },
+        { number: 5, label: "Pe" },
+        { number: 6, label: "La" },
+        { number: 0, label: "Su" }
+    ];
+
+    tasks.forEach(task => {
+        const taskDays = task.days.map(d => dayMap[d]);
+
+        const card = document.createElement("div");
+        card.classList.add("week-card");
+
+        let html = `
+            <h3>${task.name}</h3>
+
+            <div class="mobile-days">
+        `;
+
+        days.forEach(day => {
+            const active = taskDays.includes(day.number);
+            const done = task.completedDays.includes(day.number);
+
+            let symbol = "-";
+
+            if (active) {
+                symbol = done ? "✓" : "○";
+            }
+
+            html += `
+                <div class="mobile-day">
+                    <span>${day.label}</span>
+                    <span>${symbol}</span>
+                </div>
+            `;
+        });
+
+        html += `</div>`;
+
+        card.innerHTML = html;
+
+        weekList.appendChild(card);
+    });
 }
 
 function renderTodayTasks() {

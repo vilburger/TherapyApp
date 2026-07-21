@@ -1,4 +1,17 @@
 function completeTask(task) {
+    const completion = {
+        taskID: task.taskID,
+        completedAt: getTodayDate()
+    };
+
+    fetch("php/saveCompletion.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(completion)
+    });
+
     const today = new Date().getDay();
 
     if (task.completedDays.includes(today)) {

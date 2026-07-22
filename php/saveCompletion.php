@@ -47,11 +47,13 @@ try {
 
         echo json_encode([ //onnistumisviesti, jos execute() onnistuu
             "success" => true,
+            "newCompletion" => true,
             "message" => "Suoritus tallennettiin"
         ]);
     } else {
         echo json_encode([ //onnistumisviesti, jos execute() onnistuu
             "success" => true,
+            "newCompletion" => false,
             "message" => "Tehtävä oli jo merkitty tehdyksi"
         ]);
     }

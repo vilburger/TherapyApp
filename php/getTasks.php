@@ -14,10 +14,15 @@ SELECT
     TASK.startDate,
     TASK.endDate,
     TASK.rewardPoints,
-    TASKDAY.weekday
+    TASKDAY.weekday,
+    TASKCOMPLETION.completedAt
 FROM TASK
+
 LEFT JOIN TASKDAY
 ON TASK.taskID = TASKDAY.taskID
+
+LEFT JOIN TASKCOMPLETION
+ON TASK.taskID = TASKCOMPLETION.taskID
 ";
 
 //valmistellaan sql
@@ -42,6 +47,8 @@ $dayMap = [
     6 => "la",
     0 => "su"
 ];
+
+
 
 //käydäään läpi tietokannan palauttamat rivit
 foreach ($rows as $row) {
@@ -70,6 +77,18 @@ foreach ($rows as $row) {
         //[] = lisätään uusi alkio taulukon loppuun
         //(int) = muutetaan weekday kokonaisluvuksi
         $tasks[$taskID]["days"][] = $dayMap[(int)$row["weekday"]];
+    }
+
+    //jos rivin completedAt arvo ei ole null
+    if ($row["completedAt"] !== null) {
+        //luodaan päivämääräolio completedAt rivistä
+        $date = new DateTime($row["completedAt"]);
+
+        //formatoidaan viikonpäiviksi samoin kuin javascriptissä
+        $weekday = $date->format("w");
+
+        //lisätään weekday completedDays-taulukkoon
+        $tasks[$taskID]["completedDays"][] = (int)$weekday;
     }
 }
 

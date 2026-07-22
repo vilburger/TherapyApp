@@ -10,22 +10,19 @@ function completeTask(task) {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(completion)
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            loadTasks();
+
+            if (data.newCompletion) {
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                messageElement.textContent = randomMessage;
+                popup.style.display = "block";
+            }
+        } else {
+            console.error(data.message);
+        }
     });
-
-    const today = new Date().getDay();
-
-    if (task.completedDays.includes(today)) {
-        return;
-    }
-
-    task.completedDays.push(today);
-
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    messageElement.textContent = randomMessage;
-    popup.style.display = "block";
-
-    renderTodayTasks();
-    renderWeekView();
-    renderWeekList();
-    updateTodayProgress();
 }

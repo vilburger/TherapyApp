@@ -16,10 +16,18 @@
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/utilities.css">
     <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/navbar.css">
 </head>
 
 <body>
+    <div class="navbar">
+            <ul>
+                <li></li>
+                <li><a href="#taskManagement">Tehtävienhallinta</a></li>
+            </ul>
+        </div>
     <main class="dashboard">
+        
         <section class="welcome">
             <h1>Hauska nähdä taas, Vilma!</h1>
         </section>
@@ -72,7 +80,7 @@
             <div id="weekList" class="week-list"></div>
         </section>
 
-        <section class="task-management card">
+        <section class="task-management card" id="taskManagement">
             <h2>Tehtävienhallinta</h2>
 
             <table class="task-table"

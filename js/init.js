@@ -1,3 +1,4 @@
 loadTasks();
 renderCurrentDate();
 highlightToday();
+loadCurrentPlant();

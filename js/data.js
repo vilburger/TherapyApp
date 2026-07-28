@@ -22,6 +22,9 @@ let tasks = [
 */
 let tasks = [];
 
+let currentPlant = null;
+let garden = [];
+
 let editingTask = null;
 let deletingTask = null;
 

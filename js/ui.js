@@ -252,3 +252,10 @@ function highlightToday() {
         element.classList.add("today");
     })
 }
+
+function renderCurrentPlant() {
+    plantName.textContent = currentPlant.plantName;
+
+    plantProgress.textContent = 
+    `${currentPlant.progress} / ${currentPlant.requiredCompletions}`;
+}

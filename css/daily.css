@@ -29,3 +29,18 @@
 .today-task p {
     font-size: 1.3rem;
 }
+
+.top-cards {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.daily {
+    flex: 2;
+}
+
+.plant {
+    flex: 1;
+}

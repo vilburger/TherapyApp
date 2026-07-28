@@ -32,13 +32,19 @@
             <h1>Hauska nähdä taas, Vilma!</h1>
         </section>
 
+        <section class="top-cards">
         <section class="daily card" aria-labelledby="daily-task-heading">
 
             <p id="currentDate" aria-label="Päivämäärä"></p>
             <h2 id="daily-task-heading">Tämän päivän tehtävät</h2>
 
             <div id="todayTasks"></div>
-
+        </section>
+        <section class="plant card">
+            <h2 id="plantName">Kasvisi</h2>
+            <div class="plant-image"></div>
+            <p id="plantProgress">5 tehtävää kasvin kasvamiseen</p>
+        </section>
         </section>
 
         <section class="progress card">
@@ -176,6 +182,36 @@
             </div>
         </div>
 
+        <div id="plantPopup" class="popup">
+            <div class="popup-content">
+                <h2 id="plantPopupTitle"></h2>
+                <div class="plantPopupImage"></div>
+                <p id="plantPopupText"></p>
+                <button id="plantPopupButton">Jatka</button>
+            </div>
+        </div>
+
+        <div id="seedPopup" class="popup">
+            <div class="popup-content">
+                <h2>Valitse seuraava siemen</h2>
+
+                <div class="seed-container">
+                    <button class="seedButton">
+                        <div class="seedImage"></div>
+                        <p class="seedName"></p>
+                    </button>
+                    <button class="seedButton">
+                        <div class="seedImage"></div>
+                        <p class="seedName"></p>
+                    </button>
+                    <button class="seedButton">
+                        <div class="seedImage"></div>
+                        <p class="seedName"></p>
+                    </button>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <script src="js/config.js"></script>
@@ -186,6 +222,7 @@
 
     <script src="js/popup.js"></script>
     <script src="js/task.js"></script>
+    <script src="js/plant.js"></script>
     <script src="js/ui.js"></script>
 
     <script src="js/app.js"></script>

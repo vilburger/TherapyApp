@@ -28,8 +28,22 @@ WHERE taskID = ?
 AND completedAt = ?
 ";
 
+$sqlGetUser = "
+SELECT userID
+FROM TASK
+WHERE taskID = ?
+";
+
+$sqlUpdateProgress = "
+UPDATE CURRENTPLANT
+SET progress = progress + 1
+WHERE userID = ?
+";
+
 $stmt = $pdo->prepare($sql);
 $stmtCheck = $pdo->prepare($sqlCheck);
+$stmtGetUser = $pdo->prepare($sqlGetUser);
+$stmtUpdateProgress = $pdo->prepare($sqlUpdateProgress);
 
 try {
     $stmtCheck->execute([
@@ -43,6 +57,16 @@ try {
         $stmt->execute([
             $taskID,
             $completedAt
+        ]);
+
+        $stmtGetUser->execute([
+            $taskID
+        ]);
+
+        $userID = $stmtGetUser->fetchColumn();
+
+        $stmtUpdateProgress->execute([
+            $userID 
         ]);
 
         echo json_encode([ //onnistumisviesti, jos execute() onnistuu

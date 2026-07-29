@@ -41,9 +41,10 @@
             <div id="todayTasks"></div>
         </section>
         <section class="plant card">
-            <h2 id="plantName">Kasvisi</h2>
-            <div class="plant-image"></div>
-            <p id="plantProgress">5 tehtävää kasvin kasvamiseen</p>
+            <h2>Kasvisi</h2>
+            <img id="plantImage" class="plant-image" src="" alt="Kasvin kuva">
+            <h3 id="plantName"></h3>
+            <p id="plantProgress"></p>
         </section>
         </section>
 

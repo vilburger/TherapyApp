@@ -254,8 +254,17 @@ function highlightToday() {
 }
 
 function renderCurrentPlant() {
+    console.log("RendercurrentPlant käynnistyi")
     plantName.textContent = currentPlant.plantName;
 
     plantProgress.textContent = 
-    `${currentPlant.progress} / ${currentPlant.requiredCompletions}`;
+    `${currentPlant.progress} / ${currentPlant.requiredCompletions} tehtävää`;
+
+    //haetaan kasvuvaihe
+    const stage = getPlantStage(currentPlant);
+
+    const imagePath = `assets/${currentPlant.imageFolder}/stage${stage}.png`;
+    console.log(imagePath);
+
+    plantImage.src = imagePath;
 }

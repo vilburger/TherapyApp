@@ -12,11 +12,13 @@ function completeTask(task) {
         body: JSON.stringify(completion)
     })
     .then(response => response.json())
-    .then(data => {
+    .then(async data => {
         if (data.success) {
             loadTasks();
 
             if (data.newCompletion) {
+                await loadCurrentPlant();
+
                 const randomMessage = messages[Math.floor(Math.random() * messages.length)];
                 messageElement.textContent = randomMessage;
                 popup.style.display = "block";

@@ -21,3 +21,6 @@ const todayProgressText = document.getElementById("todayProgressText");
 const todayProgressInfo = document.getElementById("todayProgressInfo");
 const currentDate = document.getElementById("currentDate");
 const daysError = document.getElementById("daysError");
+const plantName = document.getElementById("plantName");
+const plantProgress = document.getElementById("plantProgress");
+const plantImage = document.getElementById("plantImage");

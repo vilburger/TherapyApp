@@ -19,6 +19,12 @@ function completeTask(task) {
             if (data.newCompletion) {
                 await loadCurrentPlant();
 
+                if (loadCurrentPlant.progress >= currentPlant.requiredCompletions) {
+                    console.log("Kasvi on valmis");
+                } else {
+                    console.log("Kasvi kasvaa vielä");
+                }
+
                 const randomMessage = messages[Math.floor(Math.random() * messages.length)];
                 messageElement.textContent = randomMessage;
                 popup.style.display = "block";

@@ -121,3 +121,8 @@ document.querySelectorAll("#daySelection input").forEach(cb => {
         }
     });
 });
+
+plantPopupButton.addEventListener("click", () => {
+    plantPopup.style.display = "none";
+    //lisää tähän: jos kasvi valmis, siirtyy siemenen valintaan
+})

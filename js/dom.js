@@ -24,3 +24,4 @@ const daysError = document.getElementById("daysError");
 const plantName = document.getElementById("plantName");
 const plantProgress = document.getElementById("plantProgress");
 const plantImage = document.getElementById("plantImage");
+const plantPopupButton = document.getElementById("plantPopupButton");

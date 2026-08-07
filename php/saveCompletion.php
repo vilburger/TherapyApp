@@ -36,14 +36,37 @@ WHERE taskID = ?
 
 $sqlUpdateProgress = "
 UPDATE CURRENTPLANT
-SET progress = progress + 1
-WHERE userID = ?
+JOIN PLANT
+    ON CURRENTPLANT.plantID = PLANT.plantID
+SET CURRENTPLANT.progress = CURRENTPLANT.progress + 1
+WHERE CURRENTPLANT.userID = ?
+AND CURRENTPLANT.progress < PLANT.requiredCompletions
+";
+
+$sqlAddToGarden = "
+INSERT INTO GARDEN (plantID, userID, amount)
+VALUES (?, ?, 1)
+ON DUPLICATE KEY UPDATE
+amount = amount + 1
+";
+
+$sqlGetPlantProgress = "
+SELECT
+    CURRENTPLANT.plantID,
+    CURRENTPLANT.progress,
+    PLANT.requiredCompletions
+FROM CURRENTPLANT
+JOIN PLANT
+    ON CURRENTPLANT.plantID = PLANT.plantID
+WHERE CURRENTPLANT.userID = ?
 ";
 
 $stmt = $pdo->prepare($sql);
 $stmtCheck = $pdo->prepare($sqlCheck);
 $stmtGetUser = $pdo->prepare($sqlGetUser);
 $stmtUpdateProgress = $pdo->prepare($sqlUpdateProgress);
+$stmtAddToGarden = $pdo->prepare($sqlAddToGarden);
+$stmtGetPlantProgress = $pdo->prepare($sqlGetPlantProgress);
 
 try {
     $stmtCheck->execute([
@@ -68,6 +91,16 @@ try {
         $stmtUpdateProgress->execute([
             $userID 
         ]);
+
+        $stmtGetPlantProgress->execute([
+            $userID
+        ]);
+
+        $plantProgress = $stmtGetPlantProgress->fetch(PDO::FETCH_ASSOC);
+
+        if ($plantProgress["progress"] >= $plantProgress["requiredCompletions"]) {
+            //JATKA TÄSTÄ
+        }
 
         echo json_encode([ //onnistumisviesti, jos execute() onnistuu
             "success" => true,

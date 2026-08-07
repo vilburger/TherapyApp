@@ -3,7 +3,6 @@ async function loadCurrentPlant() {
     })
 
     currentPlant = await response.json();
-    console.log(currentPlant);
 
     renderCurrentPlant();
 }

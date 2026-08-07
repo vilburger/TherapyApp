@@ -44,3 +44,13 @@
 .plant {
     flex: 1;
 }
+
+.plant h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.plant p {
+    margin-top: 0rem;
+    font-size: 1.5rem;
+}

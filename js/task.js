@@ -19,10 +19,16 @@ function completeTask(task) {
             if (data.newCompletion) {
                 await loadCurrentPlant();
 
-                if (loadCurrentPlant.progress >= currentPlant.requiredCompletions) {
-                    console.log("Kasvi on valmis");
+                if (currentPlant.progress >= currentPlant.requiredCompletions) {
+                    plantPopupTitle.textContent = "Kasvisi on valmis!";
+                    plantPopupText.textContent = `Hienoa! Kasvisi ${currentPlant.plantName} kasvoi täyteen mittaansa.`;
+                    plantPopup.style.display = "block";
                 } else {
                     console.log("Kasvi kasvaa vielä");
+
+                    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                    messageElement.textContent = randomMessage;
+                    popup.style.display = "block";
                 }
 
                 const randomMessage = messages[Math.floor(Math.random() * messages.length)];

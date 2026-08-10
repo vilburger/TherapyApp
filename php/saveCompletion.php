@@ -99,7 +99,10 @@ try {
         $plantProgress = $stmtGetPlantProgress->fetch(PDO::FETCH_ASSOC);
 
         if ($plantProgress["progress"] >= $plantProgress["requiredCompletions"]) {
-            //JATKA TÄSTÄ
+            $stmtAddToGarden->execute([
+                $plantProgress["plantID"],
+                $userID
+            ]);
         }
 
         echo json_encode([ //onnistumisviesti, jos execute() onnistuu

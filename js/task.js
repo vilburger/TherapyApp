@@ -14,6 +14,7 @@ function completeTask(task) {
     .then(response => response.json())
     .then(async data => {
         if (data.success) {
+            console.log(data);
             loadTasks();
 
             if (data.newCompletion) {

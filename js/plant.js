@@ -15,3 +15,17 @@ function getPlantStage(plant) {
     const stage = Math.floor(progress * 5);
     return stage;
 }
+
+async function loadPlantOptions() {
+    const response = await fetch("php/getPlantOptions.php");
+
+    const plantOptions = await response.json();
+
+    renderPlantOptions(plantOptions);
+}
+
+function renderPlantOptions(plantOptions) {
+    plantOptions.forEach((plant, index) => {
+        seedNames[index].textContent = plant.plantName;
+    });
+}

@@ -254,7 +254,6 @@ function highlightToday() {
 }
 
 function renderCurrentPlant() {
-    console.log("RendercurrentPlant käynnistyi")
     plantName.textContent = currentPlant.plantName;
 
     plantProgress.textContent = 
@@ -264,7 +263,6 @@ function renderCurrentPlant() {
     const stage = getPlantStage(currentPlant);
 
     const imagePath = `assets/${currentPlant.imageFolder}/stage${stage}.png`;
-    console.log(imagePath);
 
     plantImage.src = imagePath;
 }

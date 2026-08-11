@@ -28,3 +28,4 @@ const plantPopupButton = document.getElementById("plantPopupButton");
 const seedButtons = document.querySelectorAll(".seedButton");
 const seedImages = document.querySelectorAll(".seedImage");
 const seedNames = document.querySelectorAll(".seedName");
+const seedPopup = document.querySelector("#seedPopup");

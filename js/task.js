@@ -31,10 +31,6 @@ function completeTask(task) {
                     messageElement.textContent = randomMessage;
                     popup.style.display = "block";
                 }
-
-                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-                messageElement.textContent = randomMessage;
-                popup.style.display = "block";
             }
         } else {
             console.error(data.message);

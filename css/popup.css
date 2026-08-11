@@ -53,3 +53,11 @@
 .hidden {
     display: none;
 }
+
+.seedImage {
+    width: 100px;
+    height: 100px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}

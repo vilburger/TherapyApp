@@ -22,8 +22,8 @@
 <body>
     <div class="navbar">
             <ul>
-                <li></li>
                 <li><a href="#taskManagement">Tehtävienhallinta</a></li>
+                <button id="gardenButton" class="garden-link">Puutarha</button>
             </ul>
         </div>
     <main class="dashboard">
@@ -210,6 +210,17 @@
                         <p class="seedName"></p>
                     </button>
                 </div>
+            </div>
+        </div>
+
+        <div id="gardenPopup" class="popup">
+            <div class="popup-content">
+                <h2>Puutarha</h2>
+                <h3>Täällä näet keräämäsi kasvit</h3>
+
+                <div id="gardenContainer"></div>
+
+                <button id="closeGardenButton">Sulje</button>
             </div>
         </div>
 

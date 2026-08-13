@@ -39,7 +39,7 @@ function renderPlantOptions(plantOptions) {
 
 //funktio siemenen valinnan avaamiseen
 function showPlantChoicePopup() {
-    seedPopup.style.display = "block";
+    seedPopup.style.display = "flex";
 }
 
 function setupPlantOptionButtons() {
@@ -76,4 +76,44 @@ async function selectPlant(plantID) {
     } else {
         console.error(data.message);
     }
+}
+
+//puutarhaa varten
+async function loadGarden() {
+    const response = await fetch("php/getGarden.php");
+
+    const gardenPlants = await response.json();
+
+    console.log(gardenPlants);
+
+    renderGarden(gardenPlants);
+}
+
+function renderGarden(gardenPlants) {
+    gardenContainer.innerHTML = "";
+
+    if (gardenPlants.length === 0) {
+        gardenContainer.textContent = "Puutarhasi on vielä tyhjä! Kasvata ensimmäinen kasvisi, niin se ilmestyy tänne.";
+        return;
+    }
+
+    gardenPlants.forEach(plant => {
+        const plantCard = document.createElement("div");
+
+        plantCard.classList.add("garden-plant");
+
+        const imagePath = `assets/${plant.imageFolder}/stage5.png`;
+
+        plantCard.innerHTML = `
+            <div class="garden-plant-image"></div>
+            <p class="garden-plant-name">${plant.plantName}</p>
+            <p class="garden-plant-amount">x${plant.amount}</p>
+        `;
+
+        console.log(imagePath);
+        plantCard.querySelector(".garden-plant-image").style.backgroundImage =
+            `url("${imagePath}")`;
+
+        gardenContainer.appendChild(plantCard);
+    });
 }

@@ -14,7 +14,7 @@
     background: rgba(0, 0, 0, 0.4);
 
     justify-content: center;
-    align-items: flex-start;
+    align-items: center;
 }
 
 .popup-content {
@@ -60,4 +60,43 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+}
+
+.garden-plant-image {
+    width: 200px;
+    height: 200px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.garden-plant-name,
+.garden-plant-amount
+{
+    margin: 0.3rem;
+}
+
+#garden-popup h3 {
+    font-weight: normal;
+}
+
+#gardenContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+#closeGardenButton {
+    margin-top: 2rem;
+}
+
+.plantPopupImage {
+    width: 200px;
+    height: 200px;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    margin: 0 auto;
 }

@@ -266,3 +266,18 @@ function renderCurrentPlant() {
 
     plantImage.src = imagePath;
 }
+
+//navbarin puutarha napin toiminto
+gardenButton.addEventListener("click", async () => {
+    await loadGarden();
+    openGarden();
+});
+
+//puutarhan avaaminen 
+function openGarden() {
+    gardenPopup.style.display = "flex";
+}
+
+function closeGarden() {
+    gardenPopup.style.display = "none";
+}

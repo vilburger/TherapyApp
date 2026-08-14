@@ -47,7 +47,7 @@
             <p id="plantProgress"></p>
         </section>
         </section>
-
+<!--
         <section class="progress card">
 
             <h2>Päivän edistyminen</h2>
@@ -60,7 +60,7 @@
             <p id="todayProgressInfo"></p>
 
         </section>
-
+-->
         <section class="weekly card">
             <h2>Viikkonäkymä</h2>
 

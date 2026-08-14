@@ -24,7 +24,9 @@ function completeTask(task) {
                     plantPopupTitle.textContent = "Kasvisi on valmis!";
                     const imagePath = `assets/${currentPlant.imageFolder}/stage5.png`;
                     plantPopupImage.style.backgroundImage = `url("${imagePath}")`;
-                    plantPopupText.textContent = `Hienoa! Kasvisi ${currentPlant.plantName} kasvoi täyteen mittaansa. Se on nyt lisätty puutarhaasi, jossa voit tarkastella keräämiäsi kasveja.`;
+                    plantPopupText.innerHTML = `Hienoa! Kasvisi ${currentPlant.plantName} kasvoi täyteen mittaansa.<br>
+                    <br> 
+                    Se on nyt lisätty puutarhaasi, jossa voit tarkastella keräämiäsi kasveja.`;
                     plantPopup.style.display = "flex";
                 } else {
                     console.log("Kasvi kasvaa vielä");

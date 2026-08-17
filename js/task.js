@@ -1,18 +1,43 @@
 function completeTask(task) {
-    const today = new Date().getDay();
+    const completion = {
+        taskID: task.taskID,
+        completedAt: getTodayDate()
+    };
 
-    if (task.completedDays.includes(today)) {
-        return;
-    }
+    fetch("php/saveCompletion.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(completion)
+    })
+    .then(response => response.json())
+    .then(async data => {
+        if (data.success) {
+            console.log(data);
+            loadTasks();
 
-    task.completedDays.push(today);
+            if (data.newCompletion) {
+                await loadCurrentPlant();
 
-    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-    messageElement.textContent = randomMessage;
-    popup.style.display = "block";
+                if (currentPlant.progress >= currentPlant.requiredCompletions) {
+                    plantPopupTitle.textContent = "Kasvisi on valmis!";
+                    const imagePath = `assets/${currentPlant.imageFolder}/stage5.png`;
+                    plantPopupImage.style.backgroundImage = `url("${imagePath}")`;
+                    plantPopupText.innerHTML = `Hienoa! Kasvisi ${currentPlant.plantName} kasvoi täyteen mittaansa.<br>
+                    <br> 
+                    Se on nyt lisätty puutarhaasi, jossa voit tarkastella keräämiäsi kasveja.`;
+                    plantPopup.style.display = "flex";
+                } else {
+                    console.log("Kasvi kasvaa vielä");
 
-    renderTodayTasks();
-    renderWeekView();
-    renderWeekList();
-    updateTodayProgress();
+                    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                    messageElement.textContent = randomMessage;
+                    popup.style.display = "flex";
+                }
+            }
+        } else {
+            console.error(data.message);
+        }
+    });
 }

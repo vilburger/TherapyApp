@@ -16,23 +16,38 @@
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/utilities.css">
     <link rel="stylesheet" href="css/mobile.css">
+    <link rel="stylesheet" href="css/navbar.css">
 </head>
 
 <body>
+    <div class="navbar">
+            <ul>
+                <li><a href="#taskManagement">Tehtävienhallinta</a></li>
+                <button id="gardenButton" class="garden-link">Puutarha</button>
+            </ul>
+        </div>
     <main class="dashboard">
+        
         <section class="welcome">
             <h1>Hauska nähdä taas, Vilma!</h1>
         </section>
 
+        <section class="top-cards">
         <section class="daily card" aria-labelledby="daily-task-heading">
 
             <p id="currentDate" aria-label="Päivämäärä"></p>
             <h2 id="daily-task-heading">Tämän päivän tehtävät</h2>
 
             <div id="todayTasks"></div>
-
         </section>
-
+        <section class="plant card">
+            <h2>Kasvisi</h2>
+            <img id="plantImage" class="plant-image" src="" alt="Kasvin kuva">
+            <h3 id="plantName"></h3>
+            <p id="plantProgress"></p>
+        </section>
+        </section>
+<!--
         <section class="progress card">
 
             <h2>Päivän edistyminen</h2>
@@ -45,7 +60,7 @@
             <p id="todayProgressInfo"></p>
 
         </section>
-
+-->
         <section class="weekly card">
             <h2>Viikkonäkymä</h2>
 
@@ -72,7 +87,7 @@
             <div id="weekList" class="week-list"></div>
         </section>
 
-        <section class="task-management card">
+        <section class="task-management card" id="taskManagement">
             <h2>Tehtävienhallinta</h2>
 
             <table class="task-table"
@@ -168,6 +183,47 @@
             </div>
         </div>
 
+        <div id="plantPopup" class="popup">
+            <div class="popup-content">
+                <h2 id="plantPopupTitle"></h2>
+                <div class="plantPopupImage"></div>
+                <p id="plantPopupText"></p>
+                <button id="plantPopupButton">Jatka</button>
+            </div>
+        </div>
+
+        <div id="seedPopup" class="popup">
+            <div class="popup-content">
+                <h2>Valitse seuraava siemen</h2>
+
+                <div class="seed-container">
+                    <button class="seedButton">
+                        <div class="seedImage"></div>
+                        <p class="seedName"></p>
+                    </button>
+                    <button class="seedButton">
+                        <div class="seedImage"></div>
+                        <p class="seedName"></p>
+                    </button>
+                    <button class="seedButton">
+                        <div class="seedImage"></div>
+                        <p class="seedName"></p>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="gardenPopup" class="popup">
+            <div class="popup-content">
+                <h2>Puutarha</h2>
+                <h3>Täällä näet keräämäsi kasvit</h3>
+
+                <div id="gardenContainer"></div>
+
+                <button id="closeGardenButton">Sulje</button>
+            </div>
+        </div>
+
     </div>
 
     <script src="js/config.js"></script>
@@ -178,6 +234,7 @@
 
     <script src="js/popup.js"></script>
     <script src="js/task.js"></script>
+    <script src="js/plant.js"></script>
     <script src="js/ui.js"></script>
 
     <script src="js/app.js"></script>

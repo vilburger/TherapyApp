@@ -1,0 +1,30 @@
+.navbar {
+    width: 100%;
+}
+
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: white;
+
+}
+
+ul li {
+    float: left;
+}
+
+ul li a {
+    display: block;
+    text-align: center;
+    padding: 14px 35px 14px 35px;
+    text-decoration: none;
+    color: #104a08;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 1.3rem;
+}
+
+ul li a:hover {
+    background-color:#c7dcc4;
+}

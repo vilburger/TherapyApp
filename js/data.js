@@ -22,21 +22,27 @@ let tasks = [
 */
 let tasks = [];
 
+let currentPlant = null;
+let garden = [];
+
 let editingTask = null;
 let deletingTask = null;
 
 //funktio, joka hakee tehtävät palvelimelta
 function loadTasks() {
-    //fetch juttu PHP:n kanssa yhteistyötä varten
-    fetch("php/getTasks.php")
-        .then(response => response.json())
-        .then(data => {
-            tasks = data; //tasks-taulukkoon asetetaan haettu data
+fetch("php/getTasks.php")
+    .then(async response => {
 
-            //renderöinti-funktiot toimivat samoin kuin ennen
-            renderTaskTable();
-            renderWeekView();
-            renderTodayTasks();
-            updateTodayProgress();
-        });
+        const text = await response.text();
+
+        return JSON.parse(text);
+    })
+    .then(data => {
+        tasks = data;
+
+        renderTaskTable();
+        renderWeekView();
+        renderTodayTasks();
+        updateTodayProgress();
+    });
 }

@@ -5,3 +5,9 @@
     opacity: 0.4;
     pointer-events: none;
 }
+
+.plant-image {
+    width: 250px;
+    aspect-ratio: 1/1;
+    margin: 0 auto;
+}

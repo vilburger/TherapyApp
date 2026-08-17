@@ -252,3 +252,32 @@ function highlightToday() {
         element.classList.add("today");
     })
 }
+
+function renderCurrentPlant() {
+    plantName.textContent = currentPlant.plantName;
+
+    plantProgress.textContent = 
+    `${currentPlant.progress} / ${currentPlant.requiredCompletions} tehtävää`;
+
+    //haetaan kasvuvaihe
+    const stage = getPlantStage(currentPlant);
+
+    const imagePath = `assets/${currentPlant.imageFolder}/stage${stage}.png`;
+
+    plantImage.src = imagePath;
+}
+
+//navbarin puutarha napin toiminto
+gardenButton.addEventListener("click", async () => {
+    await loadGarden();
+    openGarden();
+});
+
+//puutarhan avaaminen 
+function openGarden() {
+    gardenPopup.style.display = "flex";
+}
+
+function closeGarden() {
+    gardenPopup.style.display = "none";
+}

@@ -40,6 +40,7 @@ function renderPlantOptions(plantOptions) {
 //funktio siemenen valinnan avaamiseen
 function showPlantChoicePopup() {
     seedPopup.style.display = "flex";
+    document.body.classList.add("popup-open");
 }
 
 function setupPlantOptionButtons() {
@@ -73,6 +74,7 @@ async function selectPlant(plantID) {
         await loadCurrentPlant();
 
         seedPopup.style.display = "none";
+        document.body.classList.remove("popup-open");
     } else {
         console.error(data.message);
     }

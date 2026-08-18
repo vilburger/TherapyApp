@@ -41,7 +41,9 @@ fetch("php/getTasks.php")
         tasks = data;
 
         renderTaskTable();
+        renderTaskList();
         renderWeekView();
+        renderWeekList();
         renderTodayTasks();
         /*updateTodayProgress();*/
     });

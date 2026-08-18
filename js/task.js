@@ -28,12 +28,14 @@ function completeTask(task) {
                     <br> 
                     Se on nyt lisätty puutarhaasi, jossa voit tarkastella keräämiäsi kasveja.`;
                     plantPopup.style.display = "flex";
+                    document.body.classList.add("popup-open");
                 } else {
-                    console.log("Kasvi kasvaa vielä");
-
-                    const randomMessage = messages[Math.floor(Math.random() * messages.length)];
-                    messageElement.textContent = randomMessage;
-                    popup.style.display = "flex";
+                    /*if (window.innerWidth <= 600) { */ 
+                        const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                        messageElement.textContent = randomMessage;
+                        popup.style.display = "flex";
+                        document.body.classList.add("popup-open");
+                   
                 }
             }
         } else {
@@ -42,20 +44,3 @@ function completeTask(task) {
     });
 }
 
-function isTaskActiveOnDate(task, date) {
-    const startDate = new Date(task.startDate);
-
-    if (date < startDate) {
-        return false;
-    }
-
-    if (task.endDate) {
-        const endDate = new Date(task.endDate);
-
-        if (date > endDate) {
-            return false;
-        }
-    }
-
-    return true;
-}

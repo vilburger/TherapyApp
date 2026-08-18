@@ -26,6 +26,7 @@ function renderTaskTable() {
             updateRecurrenceUI();
 
             taskPopup.style.display = "flex";
+            document.body.classList.add("popup-open");
         });
 
         //Poista (toistaiseksi vain avaa popupin)
@@ -33,6 +34,7 @@ function renderTaskTable() {
             deletingTask = task;
 
             deletePopup.style.display = "flex";
+            document.body.classList.add("popup-open");
         });
 
         taskTableBody.appendChild(row);
@@ -50,7 +52,7 @@ function renderTaskList() {
         item.classList.add("task-item");
 
         item.innerHTML = `
-            <div class="task-title">${task.name}</div>
+            <div class="task-title">${task.title}</div>
 
             <div class="task-buttons">
                 <button class="editButton">Muokkaa</button>
@@ -72,12 +74,14 @@ function renderTaskList() {
             updateRecurrenceUI();
 
             taskPopup.style.display = "flex";
+            document.body.classList.add("popup-open");
         });
 
         deleteButton.addEventListener("click", function () {
             deletingTask = task;
 
             deletePopup.style.display = "flex";
+            document.body.classList.add("popup-open");
         });
 
         taskList.appendChild(item);
@@ -174,8 +178,6 @@ function renderWeekView() {
 }
 
 function renderWeekList() {
-    const weekList = document.getElementById("weekList");
-
     weekList.innerHTML = "";
 
     const days = [
@@ -206,7 +208,7 @@ function renderWeekList() {
         card.classList.add("week-card");
 
         let html = `
-            <h3>${task.name}</h3>
+            <h3>${task.title}</h3>
 
             <div class="mobile-days">
         `;
@@ -220,7 +222,7 @@ function renderWeekList() {
 
             const done = task.completedDays.includes(day.number);
 
-            let symbol = "-";
+            let symbol = "";
 
             if (active) {
                 symbol = done ? "✓" : "○";
@@ -351,8 +353,10 @@ gardenButton.addEventListener("click", async () => {
 //puutarhan avaaminen 
 function openGarden() {
     gardenPopup.style.display = "flex";
+    document.body.classList.add("popup-open");
 }
 
 function closeGarden() {
     gardenPopup.style.display = "none";
+    document.body.classList.remove("popup-open");
 }

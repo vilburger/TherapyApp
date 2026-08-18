@@ -15,6 +15,7 @@ const customRadio = document.querySelector('input[value="custom"]');
 const recurrenceGroup = document.querySelector('.recurrence-options');
 const taskTableBody = document.getElementById("taskTableBody");
 const weekBody = document.getElementById("weekBody");
+const weekList = document.getElementById("weekList");
 const todayTasks = document.getElementById("todayTasks");
 const todayProgressBar = document.getElementById("todayProgressBar");
 const todayProgressText = document.getElementById("todayProgressText");

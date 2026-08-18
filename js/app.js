@@ -25,6 +25,7 @@ addButton.addEventListener("click", function () {
 
     updateRecurrenceUI();
     taskPopup.style.display = "flex";
+    document.body.classList.add("popup-open");
 });
 
 confirmDelete.addEventListener("click", function () {
@@ -124,6 +125,7 @@ document.querySelectorAll("#daySelection input").forEach(cb => {
 
 plantPopupButton.addEventListener("click", () => {
     plantPopup.style.display = "none";
+    document.body.classList.remove("popup-open");
     //jos kasvi valmis, siirtyy siemenen valintaan
     showPlantChoicePopup();
 })

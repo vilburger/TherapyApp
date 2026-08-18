@@ -2,6 +2,7 @@ cancelButton.forEach(function (button) {
     button.addEventListener("click", function () {
         taskPopup.style.display = "none";
         deletePopup.style.display = "none";
+        document.body.classList.remove("popup-open");
     });
 });
 
@@ -15,6 +16,7 @@ popups.forEach(function (popup) {
 
 function closePopup() {
     popup.style.display = "none";
+    document.body.classList.remove("popup-open");
 
     document.body.style.overflow = "auto";
 }
@@ -23,16 +25,19 @@ function closeAllPopups() {
     popup.style.display = "none";
     taskPopup.style.display = "none";
     deletePopup.style.display = "none";
+    document.body.classList.remove("popup-open");
 
     document.body.style.overflow = "auto";
 }
 
 function openTaskPopup() {
     taskPopup.style.display = "flex";
+    document.body.classList.add("popup-open");
 }
 
 function openDeletePopup() {
     deletePopup.style.display = "flex";
+    document.body.classList.add("popup-open");
 }
 
 function fillEditForm(task) {

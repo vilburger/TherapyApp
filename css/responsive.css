@@ -2,14 +2,14 @@
         RESPONSIVE
 ======================================*/
 /* mobiilille breakpoint */
-@media (max-width: 768px) {
+@media (max-width: 600px) {
     h1 {
         font-size: 2.5rem;
         margin: 0.3rem;
     }
 
     h2 {
-        font-size: 1.3rem;
+        font-size: 1.6rem;
     }
 
     .today-task h3 {
@@ -165,4 +165,89 @@
     .top-cards {
         flex-direction: column;
     }
+
+    .plant h2 {
+        margin: 0rem;
+    }
+
+    .plant h3 {
+        font-size: 1.3rem;
+        margin-bottom: 0.3rem;
+    }
+
+    .plant-image {
+        width: 150px;
+    }
+
+    .plant p {
+        font-size: 0.9rem;
+    }
+
+    .navbar {
+        width: 100%;
+    }
+
+    .navbar ul {
+    width: 100%;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+    .navbar li a {
+        padding: 10px 8px;
+        font-size: 14px;
+    }
+
+    .garden-link {
+        padding: 10px 8px;
+        font-size: 14px;
+    }
+
+    .garden-plant-image {
+        width: 100px;
+        height: 100px;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    #gardenContainer {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* TABLETILLE */
+@media (min-width: 601px) and (max-width: 768px) {
+.today-task {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+  }
+h1 {
+    margin-left: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
 }

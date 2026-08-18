@@ -23,7 +23,9 @@
     <div class="navbar">
             <ul>
                 <li><a href="#taskManagement">Tehtävienhallinta</a></li>
+                <li>
                 <button id="gardenButton" class="garden-link">Puutarha</button>
+</li>
             </ul>
         </div>
     <main class="dashboard">
@@ -186,7 +188,18 @@
         <div id="plantPopup" class="popup">
             <div class="popup-content">
                 <h2 id="plantPopupTitle"></h2>
-                <div class="plantPopupImage"></div>
+
+                <div class="plant-celebration">
+                    <div class="plant-glow"></div>
+
+                    <span class="sparkle sparkle-1">✦</span>
+                    <span class="sparkle sparkle-2">✧</span>
+                    <span class="sparkle sparkle-3">✦</span>
+                    <span class="sparkle sparkle-4">✧</span>
+
+                    <div class="plantPopupImage"></div>
+        </div>
+
                 <p id="plantPopupText"></p>
                 <button id="plantPopupButton">Jatka</button>
             </div>

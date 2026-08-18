@@ -41,3 +41,21 @@ function completeTask(task) {
         }
     });
 }
+
+function isTaskActiveOnDate(task, date) {
+    const startDate = new Date(task.startDate);
+
+    if (date < startDate) {
+        return false;
+    }
+
+    if (task.endDate) {
+        const endDate = new Date(task.endDate);
+
+        if (date > endDate) {
+            return false;
+        }
+    }
+
+    return true;
+}

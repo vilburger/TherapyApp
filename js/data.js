@@ -43,6 +43,8 @@ fetch("php/getTasks.php")
         renderTaskTable();
         renderWeekView();
         renderTodayTasks();
-        updateTodayProgress();
+        /*updateTodayProgress();*/
     });
+
+   
 }

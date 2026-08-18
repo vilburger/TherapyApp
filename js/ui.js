@@ -84,12 +84,59 @@ function renderTaskList() {
     });
 }
 
+function isTaskActiveOnDate(task, date) {
+    const startDate = parseDateOnly(task.startDate);
+
+    if (date < startDate) {
+        return false;
+    }
+
+    if (task.endDate && task.endDate !== "0000-00-00") {
+        const endDate = parseDateOnly(task.endDate);
+
+        if (date > endDate) {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+function getDateForWeekday(weekday) {
+    const today = new Date();
+    const currentDay = today.getDay();
+
+    const currentDayMondayBased = currentDay === 0 ? 7 : currentDay;
+
+    const difference = weekday === 0
+        ? 7 - currentDayMondayBased
+        : weekday - currentDayMondayBased;
+
+        const date = new Date(today);
+        date.setDate(today.getDate() + difference);
+
+        return date;
+}
+
 function renderWeekView() {
     weekBody.innerHTML = "";
 
     const days = [1, 2, 3, 4, 5, 6, 0];
 
     tasks.forEach(task => {
+        const taskDays = task.days.map(d => dayMap[d]);
+
+        const hasActiveDay = days.some(day => {
+            const date = getDateForWeekday(day);
+
+            return isTaskActiveOnDate(task, date) &&
+                (taskDays.includes(day) || task.recurrence === "daily");
+        });
+
+        if (!hasActiveDay) {
+            return;
+        }
+
         const row = document.createElement("tr");
 
         const nameCell = document.createElement("td");
@@ -102,9 +149,15 @@ function renderWeekView() {
             const cell = document.createElement("td");
             cell.dataset.day = day;
 
-            const taskDays = task.days.map(d => dayMap[d]);
+            //const taskDays = task.days.map(d => dayMap[d]);
 
-            if (taskDays.includes(day) || task.recurrence === "daily") {
+            const date = getDateForWeekday(day);
+            const taskIsActive = isTaskActiveOnDate(task, date);
+
+            if (
+                taskIsActive &&
+                (taskDays.includes(day) || task.recurrence === "daily") 
+            ){
                 const done = task.completedDays.includes(day);
 
                 cell.innerHTML = `
@@ -138,6 +191,17 @@ function renderWeekList() {
     tasks.forEach(task => {
         const taskDays = task.days.map(d => dayMap[d]);
 
+        const hasActiveDay = days.some(day => {
+            const date = getDateForWeekday(day.number);
+
+            return isTaskActiveOnDate(task, date) &&
+                (taskDays.includes(day.number) || task.recurrence === "daily");
+        });
+
+        if (!hasActiveDay) {
+            return;
+        }
+
         const card = document.createElement("div");
         card.classList.add("week-card");
 
@@ -148,7 +212,12 @@ function renderWeekList() {
         `;
 
         days.forEach(day => {
-            const active = taskDays.includes(day.number);
+            const date = getDateForWeekday(day.number);
+            const taskIsActive = isTaskActiveOnDate(task, date);
+            
+            const active = taskIsActive && 
+            (taskDays.includes(day.number) || task.recurrence === "daily");
+
             const done = task.completedDays.includes(day.number);
 
             let symbol = "-";
@@ -176,10 +245,14 @@ function renderWeekList() {
 function renderTodayTasks() {
     todayTasks.innerHTML = "";
 
-    const today = new Date().getDay();
+    const today = new Date();
+    const todayWeekday = today.getDay();
 
     const todayTaskList = tasks.filter(task =>
-        task.days.map(day => dayMap[day]).includes(today) || task.recurrence === "daily"
+        isTaskActiveOnDate(task, today) &&
+        (
+        task.days.map(day => dayMap[day]).includes(todayWeekday) || task.recurrence === "daily"
+        )
     );
 
     todayTaskList.forEach(task => {
@@ -187,7 +260,7 @@ function renderTodayTasks() {
 
         card.classList.add("today-task");
 
-        const doneToday = task.completedDays.includes(today);
+        const doneToday = task.completedDays.includes(todayWeekday);
 
         card.innerHTML = `
         <div class="task-info">
@@ -212,6 +285,7 @@ function renderTodayTasks() {
     });
 }
 
+/*
 function updateTodayProgress() {
     const today = new Date().getDay();
 
@@ -231,6 +305,7 @@ function updateTodayProgress() {
 
     todayProgressInfo.textContent = `${completed}/${total} päivän tehtävistä tehty`;
 }
+    */
 
 function renderCurrentDate() {
     const today = new Date();

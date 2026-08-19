@@ -24,14 +24,17 @@
             <ul>
                 <li><a href="#taskManagement">Tehtävienhallinta</a></li>
                 <li>
-                <button id="gardenButton" class="garden-link">Puutarha</button>
-</li>
+                <button id="gardenButton" class="garden-link">
+                    Puutarha
+                    <span id="gardenNotification" class="garden-notification">✦</span>
+                </button>
+                </li>
             </ul>
         </div>
     <main class="dashboard">
         
         <section class="welcome">
-            <h1>Hauska nähdä taas, Vilma!</h1>
+            <h1 id="greeting">Hauska nähdä taas!</h1>
         </section>
 
         <section class="top-cards">

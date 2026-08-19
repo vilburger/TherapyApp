@@ -35,3 +35,4 @@ const gardenPopup = document.getElementById("gardenPopup"); //tarviiko tätä?
 const gardenContainer = document.getElementById("gardenContainer");
 const gardenButton = document.getElementById("gardenButton");
 const closeGardenButton = document.getElementById("closeGardenButton");
+const gardenNotification = document.getElementById("gardenNotification");

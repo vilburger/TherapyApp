@@ -346,6 +346,8 @@ function renderCurrentPlant() {
 
 //navbarin puutarha napin toiminto
 gardenButton.addEventListener("click", async () => {
+    gardenNotification.classList.remove("active");
+    
     await loadGarden();
     openGarden();
 });

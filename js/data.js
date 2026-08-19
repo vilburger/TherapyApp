@@ -47,6 +47,17 @@ fetch("php/getTasks.php")
         renderTodayTasks();
         /*updateTodayProgress();*/
     });
+}
 
-   
+function loadUserName() {
+    fetch("php/getUser.php")
+    .then(response => response.json())
+    .then(data => {
+        const greeting = document.getElementById("greeting");
+
+        greeting.textContent = `Hauska nähdä taas, ${data.userName}!`;
+    })
+    .catch(error => {
+        console.error("Käyttäjän nimeä ei voitu hakea:", error);
+    });
 }

@@ -1,3 +1,4 @@
+loadUserName();
 loadTasks();
 renderCurrentDate();
 highlightToday();

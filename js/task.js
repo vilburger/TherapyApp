@@ -21,6 +21,8 @@ function completeTask(task) {
                 await loadCurrentPlant();
 
                 if (currentPlant.progress >= currentPlant.requiredCompletions) {
+                    gardenNotification.classList.add("active");
+                    
                     plantPopupTitle.textContent = "Kasvisi on valmis!";
                     const imagePath = `assets/${currentPlant.imageFolder}/stage5.png`;
                     plantPopupImage.style.backgroundImage = `url("${imagePath}")`;

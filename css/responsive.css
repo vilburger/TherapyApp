@@ -3,6 +3,16 @@
 ======================================*/
 /* mobiilille breakpoint */
 @media (max-width: 600px) {
+    /* TYPOGRAPHY */
+    p {
+        font-size: 0.9rem;
+    }
+
+    .today-task p {
+        font-size: 1.2rem;
+        margin-bottom: 0rem;
+    }
+
     h1 {
         font-size: 2.5rem;
         margin: 0.3rem;
@@ -16,11 +26,6 @@
         font-size: 1.3rem;
     }
 
-    .today-task p {
-        font-size: 1.2rem;
-        margin-bottom: 0rem;
-    }
-
     #currentDate {
         font-size: 1.2rem;
     }
@@ -29,74 +34,37 @@
         font-size: 1.6rem;
     }
 
-    .progress-container {
-        margin-top: 0.1rem;
+    .weekly h3 {
+        margin-top: 0.3rem;
+        font-weight: normal;
     }
 
-    p {
-        font-size: 0.9rem;
-    }
 
+    /* LAYOUT */
     .card {
         padding: 1rem;
     }
 
-    th,
-    td {
-        width: 20px;
-        font-size: 0.9rem;
-        padding: 0rem 0.5rem;
+    .top-cards {
+        flex-direction: column;
     }
 
-    tr {
-        height: 20px;
+    .weekly h2 {
+        margin-bottom: 0rem;
     }
 
-    /* paddingit saattaa sotkea skaalautuessa, mielummin:
-    #done {
-    padding: 0.5rem 1rem;
-}
-    ja
-
-    width: 100%;
-
-    padding: 0.2rem 3.4rem;
-    */
+    /* BUTTONS */
     .completeButton {
         font-size: 1rem;
         padding: 0rem 0.5rem;
         width: 100%;
         height: 2rem;
     }
-
+    
     .task-buttons button {
         font-size: 0.8rem;
         padding: 0.1rem 1rem;
         margin-top: 0rem;
-    }
-
-    .dot {
-        width: 7px;
-        height: 7px;
-        margin-left: 0.25rem;
-        border: 2px solid #104a08;
-    }
-
-    .progress-container {
-        height: 20px;
-    }
-
-    .task-table th,
-    .task-table td {
-        font-size: 1rem;
-        width: 25%;
-        padding: 0;
-    }
-
-    .task-table button {
-        font-size: 0.8rem;
-        padding: 0.1rem 0.5rem;
-        margin: 0;
     }
 
     #addButton {
@@ -105,6 +73,13 @@
         margin-top: 1rem;
     }
 
+    .task-table button {
+        font-size: 0.8rem;
+        padding: 0.1rem 0.5rem;
+        margin: 0;
+    }
+
+    /* DAILY TASKS */
     .today-task {
         flex-direction: column;
         align-items: flex-start;
@@ -113,31 +88,63 @@
         padding: 1rem;
     }
 
+    /* TABLES */
+    .task-table {
+        display: none;
+    }
+
+    tr {
+        height: 20px;
+    }
+
+    .task-table th,
+    .task-table td {
+        font-size: 1rem;
+    }
+
     .week-table {
         display: none;
     }
 
+    .week-table th,
+    .week-table td {
+        width: 20px;
+        font-size: 0.9rem;
+        padding: 0rem 0.5rem;
+    }
+
+
+
+    .dot {
+        width: 7px;
+        height: 7px;
+        margin-left: 0.25rem;
+        border: 2px solid #104a08;
+    }
+
+    /* SHOW MOBILE VIEWS */
     .week-list {
         display: block;
-    }
-
-    .weekly h2 {
-        margin-bottom: 0rem;
-    }
-
-    .weekly h3 {
-        margin-top: 0.3rem;
-        font-weight: normal;
-    }
-
-    .task-table {
-        display: none;
     }
 
     .task-list {
         display: block;
     }
 
+    /* FORMS */
+     #taskForm {
+        gap: 0.75rem;
+    }
+
+    #daySelection {
+        justify-content: flex-start;
+    }
+
+    .recurrence-options {
+        font-size: 1rem;
+    }
+
+    /* POPUPS */
     .popup-content {
         width: 95%;
         max-width: none;
@@ -150,22 +157,7 @@
         font-size: 1rem;
     }
 
-    #taskForm {
-        gap: 0.75rem;
-    }
-
-    #daySelection {
-        justify-content: flex-start;
-    }
-
-    .recurrence-options {
-        font-size: 1rem;
-    }
-
-    .top-cards {
-        flex-direction: column;
-    }
-
+    /* PLANTS/GARDEN */
     .plant h2 {
         margin: 0rem;
     }
@@ -181,73 +173,101 @@
 
     .plant p {
         font-size: 0.9rem;
-    }
-
-    .navbar {
-        width: 100%;
-    }
-
-    .navbar ul {
-    width: 100%;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-}
-
-    .navbar li a {
-        padding: 10px 8px;
-        font-size: 14px;
-    }
-
-    .garden-link {
-        padding: 10px 8px;
-        font-size: 14px;
-    }
+    }   
 
     .garden-plant-image {
         width: 100px;
         height: 100px;
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
     }
 
     #gardenContainer {
-        display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
+    }
+
+    /* NAVBAR */
+    .navbar ul {
+        width: 100%;
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    .navbar li a,
+    .garden-link {
+        padding: 10px 8px;
+        font-size: 14px;
     }
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* TABLETILLE */
-@media (min-width: 601px) and (max-width: 768px) {
-.today-task {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-    margin-top: 1rem;
-    padding: 1rem;
-  }
-h1 {
-    margin-left: 1rem;
+/* ===================================
+   MOBILE WEEK VIEW
+====================================== */
+.mobile-days {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.5rem;
     margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background-color: #ebfae8;
+    border-radius: 10px;
 }
+
+.mobile-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mobile-day span:first-child {
+    font-weight: bold;
+}
+
+.week-card h3 {
+    margin-bottom: 0;
+}
+
+
+/* ===================================
+   MOBILE TASK LIST
+====================================== */
+.task-item {
+    padding: 0.6rem 0;
+    border-bottom: 1px solid #8aa986;
+}
+
+.task-title {
+    font-weight: bold;
+    margin-bottom: 0.75rem;
+    overflow-wrap: anywhere;
+}
+
+.task-buttons {
+    display: flex;
+    gap: 0.75rem;
+}
+
+#taskHeading {
+    margin: 0rem;
+    font-size: 1.15rem;
+}
+
+
+
+/* ===================================
+   TABLET VIEW
+====================================== */
+@media (min-width: 601px) and (max-width: 768px) {
+    .today-task {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-top: 1rem;
+        padding: 1rem;
+    }
+
+    h1 {
+        margin-left: 1rem;
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+        }
 }

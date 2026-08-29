@@ -18,13 +18,10 @@ button:active {
     transform: scale(0.98);
 }
 
-button:focus {
-    outline: none;
-}
-
 /* näppäinkäyttöä varten */
 button:focus-visible {
-    box-shadow: 0 0 0 3px rgba(16, 74, 8, 0.35);
+    outline: 3px solid rgba(16, 74, 8, 0.35);
+    outline-offset: 2px;
 }
 
 .completeButton {
@@ -39,30 +36,8 @@ button:focus-visible {
     margin-top: 1rem;
 }
 
-.task-table button {
-    padding: 0.1rem 2rem;
-    margin: 0.4rem;
-}
-
+.task-table button,
 .popup-content button {
     padding: 0.1rem 2rem;
     margin: 0.4rem;
-}
-
-.garden-link {
-    background: none;
-    border: none;
-    padding: 0;
-    font: inherit;
-    cursor: pointer;
-
-    display: block;
-  text-align: center;
-  padding: 14px 35px 14px 35px;
-  text-decoration: none;
-  color: #104a08;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-  font-size: 1.3rem;
-
-  border-radius: 0px;
 }

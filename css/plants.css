@@ -1,0 +1,133 @@
+.plant-image {
+    width: 250px;
+    aspect-ratio: 1/1;
+    margin: 0 auto;
+}
+
+.seed-image,
+.garden-plant-image,
+.plant-popup-image {
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.garden-plant-image,
+.plant-popup-image {
+    width: 200px;
+    height: 200px;
+}
+
+.plant-popup-image {
+    margin: 0 auto;
+}
+
+.seed-image {
+    width: 100px;
+    height: 100px;
+}
+
+#gardenContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+}
+
+.seed-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.garden-plant-name,
+.garden-plant-amount
+{
+    margin: 0.3rem;
+}
+
+#closeGardenButton {
+    margin-top: 2rem;
+}
+
+
+/* ===================================
+        ANIMATIONS/EFFECTS
+======================================*/
+.plant-celebration {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem auto;
+    width: 220px;
+    height: 220px;
+}
+
+.plant-glow {
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    border-radius: 50%;
+
+    background: rgba(150, 220, 120, 0.25);
+
+    filter: blur(15px);
+
+    animation: plantGlow 2s ease-in-out infinite;
+}
+
+@keyframes plantGlow {
+    0%, 100% {
+        transform: scale(0.9);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+
+
+.sparkle {
+    position: absolute;
+    z-index: 3;
+
+    font-size: 1.5rem;
+
+    animation: sparkle 1.8s ease-in-out infinite;
+}
+
+.sparkle-1 {
+    top: 10px;
+    left: 30px;
+}
+
+.sparkle-2 {
+    top: 35px;
+    right: 20px;
+    animation-delay: 0.4s;
+}
+
+.sparkle-3 {
+    bottom: 30px;
+    left: 15px;
+    animation-delay: 0.8s;
+}
+
+.sparkle-4 {
+    bottom: 10px;
+    left: 35px;
+    animation-delay: 1.2s;
+}
+
+@keyframes sparkle {
+    0%, 100% {
+        transform: scale(0.6) rotate(0deg);
+        opacity: 0.3;
+    }
+
+    50% {
+        transform: scale(1.2) rotate(20deg);
+        opacity: 1;
+    }
+}

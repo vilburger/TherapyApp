@@ -20,52 +20,42 @@
 </head>
 
 <body>
-    <div class="navbar">
-            <ul>
-                <li><a href="#taskManagement">Tehtävienhallinta</a></li>
-                <li>
+    <nav class="navbar" aria-label="Päänavigaatio">
+        <ul>
+            <li>
+                <a href="#taskManagement">Tehtävienhallinta</a>
+            </li>
+            <li>
                 <button id="gardenButton" class="garden-link">
                     Puutarha
                     <span id="gardenNotification" class="garden-notification">✦</span>
                 </button>
-                </li>
-            </ul>
-        </div>
+            </li>
+        </ul>
+    </nav>
+        
     <main class="dashboard">
         
         <section class="welcome">
             <h1 id="greeting">Hauska nähdä taas!</h1>
         </section>
 
-        <section class="top-cards">
-        <section class="daily card" aria-labelledby="daily-task-heading">
+        <div class="top-cards">
+            <section class="daily card" aria-labelledby="daily-task-heading">
 
-            <p id="currentDate" aria-label="Päivämäärä"></p>
-            <h2 id="daily-task-heading">Tämän päivän tehtävät</h2>
+                <p id="currentDate" aria-label="Päivämäärä"></p>
+                <h2 id="daily-task-heading">Tämän päivän tehtävät</h2>
 
-            <div id="todayTasks"></div>
-        </section>
-        <section class="plant card">
-            <h2>Kasvisi</h2>
-            <img id="plantImage" class="plant-image" src="" alt="Kasvin kuva">
-            <h3 id="plantName"></h3>
-            <p id="plantProgress"></p>
-        </section>
-        </section>
-<!--
-        <section class="progress card">
+                <div id="todayTasks"></div>
+            </section>
+            <section class="plant card">
+                <h2>Kasvisi</h2>
+                <img id="plantImage" class="plant-image" src="" alt="">
+                <h3 id="plantName"></h3>
+                <p id="plantProgress"></p>
+            </section>
+        </div>
 
-            <h2>Päivän edistyminen</h2>
-
-            <div class="progress-container">
-                <div class="progress-bar" id="todayProgressBar"></div>
-                <span id="todayProgressText">0%</span>
-            </div>
-
-            <p id="todayProgressInfo"></p>
-
-        </section>
--->
         <section class="weekly card">
             <h2>Viikkonäkymä</h2>
 
@@ -99,9 +89,7 @@
                 aria-label="Aktiiviset tehtävät">
                 <thead>
                     <tr>
-                        <th>Aktiiviset tehtäväsi</th>
-                        <th></th>
-                        <th></th>
+                        <th>Aktiiviset tehtäväsi</th>                     
                     </tr>
                 </thead>
                 <tbody id="taskTableBody">
@@ -141,8 +129,8 @@
                     <label for="taskDescription">Tehtävän kuvaus:</label>
                     <textarea id="taskDescription" name="taskDescription"></textarea>
 
-                    <div class="form-group">
-                        <label>Valitse toistuvuus</label>
+                    <fieldset class="form-group">
+                        <legend>Valitse toistuvuus</legend>
 
                         <div class="recurrence-options">
                             <label>
@@ -165,7 +153,7 @@
                         </div>
 
                         <div id="daysError" class="error-message hidden"></div>
-                    </div>
+                </fieldset>
 
                     <label for="startDate">Aloituspäivä</label>
                     <input type="date" id="startDate" required>
@@ -174,7 +162,7 @@
                     <input type="date" id="endDate"> <br>
 
                     <button type="submit">Tallenna</button>
-                    <button type="button" class="cancelButton">Peruuta</button>
+                    <button type="button" class="cancel-button">Peruuta</button>
                 </form>
             </div>
         </div>
@@ -184,7 +172,7 @@
                 <h3>Poista tehtävä</h3>
                 <p>Haluatko varmasti poistaa tämän tehtävän?</p>
                 <button id="confirmDelete">Poista</button>
-                <button type="button" class="cancelButton">Peruuta</button>
+                <button type="button" class="cancel-button">Peruuta</button>
             </div>
         </div>
 
@@ -200,8 +188,8 @@
                     <span class="sparkle sparkle-3">✦</span>
                     <span class="sparkle sparkle-4">✧</span>
 
-                    <div class="plantPopupImage"></div>
-        </div>
+                    <div id="plantPopupImage" class="plant-popup-image"></div>
+                </div>
 
                 <p id="plantPopupText"></p>
                 <button id="plantPopupButton">Jatka</button>
@@ -213,17 +201,17 @@
                 <h2>Valitse seuraava siemen</h2>
 
                 <div class="seed-container">
-                    <button class="seedButton">
-                        <div class="seedImage"></div>
-                        <p class="seedName"></p>
+                    <button class="seed-button">
+                        <div class="seed-image"></div>
+                        <p class="seed-name"></p>
                     </button>
-                    <button class="seedButton">
-                        <div class="seedImage"></div>
-                        <p class="seedName"></p>
+                    <button class="seed-button">
+                        <div class="seed-image"></div>
+                        <p class="seed-name"></p>
                     </button>
-                    <button class="seedButton">
-                        <div class="seedImage"></div>
-                        <p class="seedName"></p>
+                    <button class="seed-button">
+                        <div class="seed-image"></div>
+                        <p class="seed-name"></p>
                     </button>
                 </div>
             </div>

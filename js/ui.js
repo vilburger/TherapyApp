@@ -342,6 +342,7 @@ function renderCurrentPlant() {
     const imagePath = `assets/${currentPlant.imageFolder}/stage${stage}.png`;
 
     plantImage.src = imagePath;
+    plantImage.alt = `Kasvi: ${currentPlant.plantName}`;
 }
 
 //navbarin puutarha napin toiminto

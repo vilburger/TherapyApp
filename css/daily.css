@@ -30,10 +30,14 @@
     font-size: 1.3rem;
 }
 
+
+/* ===================================
+        TOP LAYOUT
+======================================*/
 .top-cards {
     display: flex;
     flex-direction: row;
-    gap: 20px;
+    gap: 1.25rem;
     align-items: stretch;
 }
 
@@ -51,6 +55,5 @@
 }
 
 .plant p {
-    margin-top: 0rem;
-    font-size: 1.5rem;
+    margin-top: 0;
 }

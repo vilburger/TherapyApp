@@ -1,34 +1,6 @@
-/* ===================================
-        WEEK VIEW
-======================================*/
-
 table {
+    border-collapse: collapse;
     border-radius: 12px;
-}
-
-.week-table {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-}
-
-.week-list {
-    display: none;
-}
-
-.week-table th,
-.week-table td {
-    padding: 0.5rem;
-    text-align: center;
-}
-
-th,
-td {
-    width: 40px;
-    font-size: 1.5rem;
-    padding: 0rem 3rem;
-    border-left: 1.5px solid #104a08;
-
 }
 
 tr {
@@ -41,37 +13,20 @@ td {
     overflow-wrap: break-word;
 }
 
-
-.today {
-    background-color: #c7dcc4;
+th:first-child,
+td:first-child {
+    border-left: 0;
 }
 
-.dot {
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    border: 4px solid #104a08;
-    display: inline-block;
-    margin-left: 0.5rem;
-}
-
-.done {
-    background-color: #104a08;
-}
-
-/* ===================================
-        TASK TABLE
-======================================*/
-
+.week-table,
 .task-table {
+    display: table;
     width: 100%;
     table-layout: fixed;
-    display: table;
 }
 
 .task-table th,
 .task-table td {
-    font-size: 1.5rem;
     width: 25%;
     padding: 0;
 }
@@ -88,6 +43,34 @@ td {
     text-align: center;
 }
 
+.week-table th,
+.week-table td {
+    padding: 0.5rem;
+    text-align: center;
+
+    width: 40px;
+    font-size: 1.5rem;
+    border-left: 1.5px solid #104a08;
+}
+
+.week-list,
 .task-list {
     display: none;
+}
+
+.today {
+    background-color: #c7dcc4;
+}
+
+.dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 4px solid #104a08;
+    display: inline-block;
+    margin-left: 0.5rem;
+}
+
+.done {
+    background-color: #104a08;
 }

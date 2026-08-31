@@ -1,9 +1,7 @@
 <?php
 
-require "db.php"; //tietokantayhteys
+require "db.php";
 
-//SQL-lause jokaa hakee TASK-taulun sisällön, ja TASKDAY-taulun weekday sisällön. Taulut yhdistetään LEFT JOINilla 
-//yhdistyen taskID:llä.
 $sql = "
 SELECT
     TASK.taskID,
@@ -25,19 +23,15 @@ LEFT JOIN TASKCOMPLETION
 ON TASK.taskID = TASKCOMPLETION.taskID
 ";
 
-//valmistellaan sql
 $stmt = $pdo->prepare($sql);
 
-//suoritus
 $stmt->execute();
 
-//luetaan kaikki rivit ja tallennetaan ne muuttujaan rows
 $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 $tasks = [];
 
-//lista päivistä, jotta ne saadaan muutettua takaisin merkkijonoksi JavaScriptiä varten
-//JS toiminta perustuu merkkijonoihin, joten nopeampi lisätä tänne lista kuin muuttaa joka kohtaa vastaamaan numeroarvoja
+// Muuttaa tietokannan viikonpäivän numeron JavaScriptin käyttämäksi tunnukseksi
 $dayMap = [
     1 => "ma",
     2 => "ti",
@@ -48,16 +42,12 @@ $dayMap = [
     0 => "su"
 ];
 
-
-
-//käydäään läpi tietokannan palauttamat rivit
+// Kootaan JOIN-kyseyn useat rivit yhdeksi tehtäväksi ja sen viikonpäiviksi ja suorituksiksi
 foreach ($rows as $row) {
-    //otetaan taskID talteen
     $taskID = $row["taskID"];
 
-    //jokaisen taskID:n kohdalla tarkistetaan onko sillä ID:llä jo task (luodaanko uusi vai lisätäänkö pvm arvo vanhaan)
+    // Ryhmitellään kyselyn tulokset taskID:n perusteella
     if (!isset($tasks[$taskID])) {
-        //luodaan tehtävä
         $tasks[$taskID] = [
             "taskID" => $row["taskID"],
             "userID" => $row["userID"],
@@ -72,28 +62,19 @@ foreach ($rows as $row) {
         ];
     }
     if ($row["weekday"] !== null) {
-        //$tasks[$taskID] = haetaan oikea tehtävä
-        //["days"] = haetaan sen days-taulukko
-        //[] = lisätään uusi alkio taulukon loppuun
-        //(int) = muutetaan weekday kokonaisluvuksi
         $tasks[$taskID]["days"][] = $dayMap[(int)$row["weekday"]];
     }
 
-    //jos rivin completedAt arvo ei ole null
     if ($row["completedAt"] !== null) {
-        //luodaan päivämääräolio completedAt rivistä
         $date = new DateTime($row["completedAt"]);
 
-        //formatoidaan viikonpäiviksi samoin kuin javascriptissä
+        // Käytetään samaa viikonpäivien numerointia kuin JavaScriptin getDay() -metodissa
         $weekday = $date->format("w");
 
-        //lisätään weekday completedDays-taulukkoon
         $tasks[$taskID]["completedDays"][] = (int)$weekday;
     }
 }
 
-//kertoo selaimelle että lähetetään jsonia
 header("Content-Type: application/json");
 
-//muuttaa PHP taulukon JSONiksi
 echo json_encode(array_values($tasks));

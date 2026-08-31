@@ -5,6 +5,7 @@ const messages = [
     "Olet edistynyt hienosti!"
 ];
 
+// Muuntaa viikonpäivien tunnukset JavaScriptin getDay()-numerointiin
 const dayMap = {
     ma: 1,
     ti: 2,
@@ -13,4 +14,4 @@ const dayMap = {
     pe: 5,
     la: 6,
     su: 0
-}
+};

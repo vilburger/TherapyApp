@@ -1,19 +1,17 @@
 <?php
 
-//yhteys tietokantaan
 require "db.php";
 
-//kirjekuori, joka vastaanottaa JSON:n
 $input = file_get_contents("php://input");
 
-//muutetaan JSON PHP-taulukoksi
 $data = json_decode($input, true);
 
-header("Content-Type: application/json"); //PHP kertoo tällä selaimelle, että sen vastaus on JSON-muodossa
+header("Content-Type: application/json");
 
 $taskID = $data["taskID"];
 $completedAt = $data["completedAt"];
 
+// Tallentaa tehtävän suorituksen
 $sql = "
 INSERT INTO TASKCOMPLETION
 (taskID, completedAt)
@@ -21,6 +19,7 @@ VALUES
 (?, ?)
 ";
 
+// Tarkistaa onko tehtävä jo merkitty tehdyksi samana päivänä
 $sqlCheck = "
 SELECT COUNT(*)
 FROM TASKCOMPLETION
@@ -28,12 +27,15 @@ WHERE taskID = ?
 AND completedAt = ?
 ";
 
+// Haetaan tehtävään liittyvä käyttäjä, jotta suoritus voidaan yhdistää hänen aktiiviseen kasviinsa
 $sqlGetUser = "
 SELECT userID
 FROM TASK
 WHERE taskID = ?
 ";
 
+// Kasvattaa aktiivisen kasvin edistymistä yhdellä.
+// Edistymistä kasvatetaan vain, jos kasvi ei ole vielä saavuttanut vaadittua suoritusmäärää.
 $sqlUpdateProgress = "
 UPDATE CURRENTPLANT
 JOIN PLANT
@@ -43,6 +45,7 @@ WHERE CURRENTPLANT.userID = ?
 AND CURRENTPLANT.progress < PLANT.requiredCompletions
 ";
 
+// Lisää valmiin kasvin puutarhaan tai kasvattaa olemassa olevan kasvin määrää
 $sqlAddToGarden = "
 INSERT INTO GARDEN (plantID, userID, amount)
 VALUES (?, ?, 1)
@@ -50,6 +53,7 @@ ON DUPLICATE KEY UPDATE
 amount = amount + 1
 ";
 
+// Haetaan kasvin tämänhetkinen edistyminen ja tarvittavien suoritusten määrä
 $sqlGetPlantProgress = "
 SELECT
     CURRENTPLANT.plantID,
@@ -82,6 +86,7 @@ try {
             $completedAt
         ]);
 
+        // Haetaan tehtävän käyttäjä, jotta oikean käyttäjän aktiivista kasvia voidaan päivittää
         $stmtGetUser->execute([
             $taskID
         ]);
@@ -98,6 +103,7 @@ try {
 
         $plantProgress = $stmtGetPlantProgress->fetch(PDO::FETCH_ASSOC);
 
+        // Kun kasvi saavuttaa vaaditun suoritusmäärän, se lisätään käyttäjän puutarhaan
         if ($plantProgress["progress"] >= $plantProgress["requiredCompletions"]) {
             $stmtAddToGarden->execute([
                 $plantProgress["plantID"],
@@ -105,19 +111,19 @@ try {
             ]);
         }
 
-        echo json_encode([ //onnistumisviesti, jos execute() onnistuu
+        echo json_encode([
             "success" => true,
             "newCompletion" => true,
             "message" => "Suoritus tallennettiin"
         ]);
     } else {
-        echo json_encode([ //onnistumisviesti, jos execute() onnistuu
+        echo json_encode([ 
             "success" => true,
             "newCompletion" => false,
             "message" => "Tehtävä oli jo merkitty tehdyksi"
         ]);
     }
-} catch (PDOException $e) { //jos epäonnistuu, kerrotaan mikä meni pieleen
+} catch (PDOException $e) { 
     echo json_encode([
         "success" => false,
         "message" => $e->getMessage()

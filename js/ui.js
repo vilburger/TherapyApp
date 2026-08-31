@@ -1,3 +1,7 @@
+// ===================================
+// TASK VIEWS
+// ===================================
+
 function renderTaskTable() {
     taskTableBody.innerHTML = "";
 
@@ -10,11 +14,10 @@ function renderTaskTable() {
         <td><button class="deleteButton">Poista</button></td>
         `;
 
-        //Haetaan juuri tämän rivin painikkeet
+        //Haetaan juuri tähän tehtäväriviin liittyvät painikkeet
         const editButton = row.querySelector(".editButton");
         const deleteButton = row.querySelector(".deleteButton");
 
-        //Muokkaa
         editButton.addEventListener("click", function () {
             editingTask = task;
 
@@ -29,7 +32,6 @@ function renderTaskTable() {
             document.body.classList.add("popup-open");
         });
 
-        //Poista (toistaiseksi vain avaa popupin)
         deleteButton.addEventListener("click", function () {
             deletingTask = task;
 
@@ -38,9 +40,10 @@ function renderTaskTable() {
         });
 
         taskTableBody.appendChild(row);
-    })
+    });
 }
 
+// Mobiilin tehtävänäkymä
 function renderTaskList() {
     const taskList = document.getElementById("taskList");
 
@@ -88,39 +91,10 @@ function renderTaskList() {
     });
 }
 
-function isTaskActiveOnDate(task, date) {
-    const startDate = parseDateOnly(task.startDate);
 
-    if (date < startDate) {
-        return false;
-    }
-
-    if (task.endDate && task.endDate !== "0000-00-00") {
-        const endDate = parseDateOnly(task.endDate);
-
-        if (date > endDate) {
-            return false;
-        }
-    }
-
-    return true;
-}
-
-function getDateForWeekday(weekday) {
-    const today = new Date();
-    const currentDay = today.getDay();
-
-    const currentDayMondayBased = currentDay === 0 ? 7 : currentDay;
-
-    const difference = weekday === 0
-        ? 7 - currentDayMondayBased
-        : weekday - currentDayMondayBased;
-
-        const date = new Date(today);
-        date.setDate(today.getDate() + difference);
-
-        return date;
-}
+// ===================================
+// WEEK VIEWS
+// ===================================
 
 function renderWeekView() {
     weekBody.innerHTML = "";
@@ -130,6 +104,7 @@ function renderWeekView() {
     tasks.forEach(task => {
         const taskDays = task.days.map(d => dayMap[d]);
 
+        // Tarkistetaan, näkyykö tehtävä vähintään yhtenä viikon päivänä
         const hasActiveDay = days.some(day => {
             const date = getDateForWeekday(day);
 
@@ -153,8 +128,6 @@ function renderWeekView() {
             const cell = document.createElement("td");
             cell.dataset.day = day;
 
-            //const taskDays = task.days.map(d => dayMap[d]);
-
             const date = getDateForWeekday(day);
             const taskIsActive = isTaskActiveOnDate(task, date);
 
@@ -177,6 +150,7 @@ function renderWeekView() {
     highlightToday();
 }
 
+// Mobiilin viikkonäkymä
 function renderWeekList() {
     weekList.innerHTML = "";
 
@@ -244,6 +218,11 @@ function renderWeekList() {
     });
 }
 
+
+// ===================================
+// TODAY'S TASKS
+// ===================================
+
 function renderTodayTasks() {
     todayTasks.innerHTML = "";
 
@@ -287,27 +266,10 @@ function renderTodayTasks() {
     });
 }
 
-/*
-function updateTodayProgress() {
-    const today = new Date().getDay();
 
-    const todaysTasks = tasks.filter(task => task.days.map(d => dayMap[d]).includes(today) || task.recurrence === "daily");
-
-    const completed = todaysTasks.filter(task =>
-        task.completedDays.includes(today)
-    ).length;
-
-    const total = todaysTasks.length;
-
-    const percent = total === 0 ? 0 : Math.round(completed / total * 100);
-
-    todayProgressBar.style.width = percent + "%";
-
-    todayProgressText.textContent = percent + "%";
-
-    todayProgressInfo.textContent = `${completed}/${total} päivän tehtävistä tehty`;
-}
-    */
+// ===================================
+// DATE AND PLANT DISPLAY
+// ===================================
 
 function renderCurrentDate() {
     const today = new Date();
@@ -336,30 +298,11 @@ function renderCurrentPlant() {
     plantProgress.textContent = 
     `${currentPlant.progress} / ${currentPlant.requiredCompletions} tehtävää`;
 
-    //haetaan kasvuvaihe
+    // Määritetään näytettävä kasvukuva kasvin etenemisen perusteella
     const stage = getPlantStage(currentPlant);
 
     const imagePath = `assets/${currentPlant.imageFolder}/stage${stage}.png`;
 
     plantImage.src = imagePath;
     plantImage.alt = `Kasvi: ${currentPlant.plantName}`;
-}
-
-//navbarin puutarha napin toiminto
-gardenButton.addEventListener("click", async () => {
-    gardenNotification.classList.remove("active");
-    
-    await loadGarden();
-    openGarden();
-});
-
-//puutarhan avaaminen 
-function openGarden() {
-    gardenPopup.style.display = "flex";
-    document.body.classList.add("popup-open");
-}
-
-function closeGarden() {
-    gardenPopup.style.display = "none";
-    document.body.classList.remove("popup-open");
 }

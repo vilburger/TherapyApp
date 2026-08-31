@@ -1,3 +1,7 @@
+// ===================================
+// POPUP CONTROLS
+// ===================================
+
 cancelButton.forEach(function (button) {
     button.addEventListener("click", function () {
         taskPopup.style.display = "none";
@@ -14,31 +18,25 @@ popups.forEach(function (popup) {
     });
 });
 
+// Sulkee onnistumis-popupin
 function closePopup() {
-    popup.style.display = "none";
+    successPopup.style.display = "none";
     document.body.classList.remove("popup-open");
-
-    document.body.style.overflow = "auto";
 }
 
+// Sulkee kaikki avoinna olevat popupit
 function closeAllPopups() {
-    popup.style.display = "none";
-    taskPopup.style.display = "none";
-    deletePopup.style.display = "none";
+    popups.forEach(popup => {
+        popup.style.display = "none";
+    });
+
     document.body.classList.remove("popup-open");
-
-    document.body.style.overflow = "auto";
 }
 
-function openTaskPopup() {
-    taskPopup.style.display = "flex";
-    document.body.classList.add("popup-open");
-}
 
-function openDeletePopup() {
-    deletePopup.style.display = "flex";
-    document.body.classList.add("popup-open");
-}
+// ===================================
+// TASK FORM
+// ===================================
 
 function fillEditForm(task) {
     taskTitle.value = task.title;
@@ -73,3 +71,31 @@ function setRecurrenceUI(task) {
 
     updateRecurrenceUI();
 }
+
+
+// ===================================
+// PLANT POPUP
+// ===================================
+
+// Siirtyy kasvin valmistumis-popupista siemenen valintaan
+plantPopupButton.addEventListener("click", () => {
+    plantPopup.style.display = "none";
+    document.body.classList.remove("popup-open");
+
+    showPlantChoicePopup();
+})
+
+
+// ===================================
+// POPUP EVENT HANDLERS
+// ===================================
+
+// Sulje-napin toiminto
+closeButton.addEventListener("click", closePopup);
+
+// Sulkee popupit esc-näppäimellä
+document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+        closeAllPopups();
+    }
+})

@@ -1,8 +1,10 @@
 <?php
 
-require_once "db.php"; //miksi once? muissa on pelkkä require
+require "db.php";
 
-$userID = 1; //kovakoodattu koska tällä hetkellä vain yksi käyttäjä
+// Käyttäjä-ID on toistaiseksi kovakoodattu, koska sovelluksessa on yksi käyttäjä.
+// TODO: Hae käyttäjä kirjautuneen käyttäjän perusteella.
+$userID = 1;
 
 $sql = "
 SELECT userName 

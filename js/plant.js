@@ -1,20 +1,27 @@
+// ===================================
+// CURRENT PLANT
+// ===================================
+
 async function loadCurrentPlant() {
-     const response = await fetch("php/getCurrentPlant.php", {
-    })
+     const response = await fetch("php/getCurrentPlant.php")
 
     currentPlant = await response.json();
 
     renderCurrentPlant();
 }
 
-//funktio, joka hakee kasvin oikean kasvuvaiheen
+// Laskee kasvin kasvuvaiheen edistymisen perusteella
 function getPlantStage(plant) {
-    //lasketaan edistyminen jakamalla kasvin edistyminen tarvituilla suorituksilla
     const progress = plant.progress / plant.requiredCompletions;
-    //lasketaan kasvuvaihe kertomalla äskeinen tulos viidellä ja pyöristämällä alaspäin kokonaislukuun
     const stage = Math.floor(progress * 5);
+
     return stage;
 }
+
+
+// ===================================
+// PLANT SELECTION
+// ===================================
 
 async function loadPlantOptions() {
     const response = await fetch("php/getPlantOptions.php");
@@ -32,12 +39,11 @@ function renderPlantOptions(plantOptions) {
 
         seedImages[index].style.backgroundImage = `url("${imagePath}")`;
 
-        //HTML-napille data-attribuutti plantID
+        // Liittää kasvin tunnisteen HTML-painikkeeseen
         seedButtons[index].dataset.plantId = plant.plantID;
     });
 }
 
-//funktio siemenen valinnan avaamiseen
 function showPlantChoicePopup() {
     seedPopup.style.display = "flex";
     document.body.classList.add("popup-open");
@@ -47,8 +53,6 @@ function setupPlantOptionButtons() {
     seedButtons.forEach(button => {
         button.addEventListener("click", () => {
             const plantID = button.dataset.plantId;
-
-            console.log("Valittu kasvi: ", plantID);
 
             selectPlant(plantID);
         })
@@ -80,13 +84,16 @@ async function selectPlant(plantID) {
     }
 }
 
-//puutarhaa varten
+
+// ===================================
+// GARDEN
+// ===================================
+
+// Hakee valmiit kasvit palvelimelta ja päivittää puutarhanäkymän
 async function loadGarden() {
     const response = await fetch("php/getGarden.php");
 
     const gardenPlants = await response.json();
-
-    console.log(gardenPlants);
 
     renderGarden(gardenPlants);
 }
@@ -112,10 +119,31 @@ function renderGarden(gardenPlants) {
             <p class="garden-plant-amount">x${plant.amount}</p>
         `;
 
-        console.log(imagePath);
         plantCard.querySelector(".garden-plant-image").style.backgroundImage =
             `url("${imagePath}")`;
 
         gardenContainer.appendChild(plantCard);
     });
+}
+
+
+// ===================================
+// GARDEN CONTROLS
+// ===================================
+
+gardenButton.addEventListener("click", async () => {
+    gardenNotification.classList.remove("active");
+    
+    await loadGarden();
+    openGarden();
+});
+
+function openGarden() {
+    gardenPopup.style.display = "flex";
+    document.body.classList.add("popup-open");
+}
+
+function closeGarden() {
+    gardenPopup.style.display = "none";
+    document.body.classList.remove("popup-open");
 }

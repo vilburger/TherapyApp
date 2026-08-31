@@ -1,15 +1,12 @@
 <?php
 
-//yhteys tietokantaan
 require "db.php";
 
-//kirjekuori, joka vastaanottaa JSON:n
 $input = file_get_contents("php://input");
 
-//muutetaan JSON PHP-taulukoksi
 $data = json_decode($input, true);
 
-header("Content-Type: application/json"); //PHP kertoo tällä selaimelle, että sen vastaus on JSON-muodossa
+header("Content-Type: application/json");
 
 $taskID = $data["taskID"];
 
@@ -25,11 +22,11 @@ try {
         $taskID
     ]);
 
-    echo json_encode([ //onnistumisviesti, jos execute() onnistuu
+    echo json_encode([ 
         "success" => true,
         "message" => "Tehtävä poistettiin onnistuneesti"
     ]);
-} catch (PDOException $e) { //jos epäonnistuu, kerrotaan mikä meni pieleen
+} catch (PDOException $e) {
     echo json_encode([
         "success" => false,
         "message" => $e->getMessage()

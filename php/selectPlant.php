@@ -3,25 +3,28 @@
 require "db.php";
 
 $input = file_get_contents("php://input");
-
 $data = json_decode($input, true);
 
 header("Content-Type: application/json");
 
 $plantID = $data["plantID"];
 
-//koska sovelluksessa ei käyttäjän tunnistusta, asetetaan userID suoraan 1
+// Käyttäjä-ID on toistaiseksi kovakoodattu, koska sovelluksessa ei ole käyttäjätunnistusta.
+// TODO: Hae käyttäjä kirjautuneen käyttäjän perusteella.
+$userID = 1;
+
 $sqlUpdatePlant = "
 UPDATE CURRENTPLANT
 SET plantID = ?, progress = 0
-WHERE userID = 1
+WHERE userID = ?
 ";
 
-$stmtUpdatePlant = $pdo->prepare($sqlUpdatePlant);
-
 try {
+    $stmtUpdatePlant = $pdo->prepare($sqlUpdatePlant);
+
     $stmtUpdatePlant->execute([
-        $plantID
+        $plantID,
+        $userID
     ]);
 
     echo json_encode([

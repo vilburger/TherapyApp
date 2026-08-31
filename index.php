@@ -13,9 +13,9 @@
     <link rel="stylesheet" href="css/daily.css">
     <link rel="stylesheet" href="css/forms.css">
     <link rel="stylesheet" href="css/popup.css">
+    <link rel="stylesheet" href="css/plants.css">
     <link rel="stylesheet" href="css/responsive.css">
     <link rel="stylesheet" href="css/utilities.css">
-    <link rel="stylesheet" href="css/mobile.css">
     <link rel="stylesheet" href="css/navbar.css">
 </head>
 

@@ -2,8 +2,11 @@
 
 require "db.php";
 
-//asetetaan toistaiseksi userID:ksi suoraan 1, mutta myöhemmin on tarve hakea käyttäjä oikeasti
-$userID = 1; // TODO: hae myöhemmin kirjautuneelta käyttäjältä
+header("Content-Type: application/json");
+
+// Käyttäjä on toistaiseksi kiinteästi määritelty
+// TODO: Haetaan käyttäjä kirjautuneen käyttäjän perusteella
+$userID = 1;
 
 $sql = "
 SELECT

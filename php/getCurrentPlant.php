@@ -1,18 +1,12 @@
 <?php
 
-//yhteys tietokantaan
 require "db.php";
 
-//kirjekuori, joka vastaanottaa JSON:n
-$input = file_get_contents("php://input");
+header("Content-Type: application/json");
 
-//muutetaan JSON PHP-taulukoksi
-$data = json_decode($input, true);
-
-
-
-//asetetaan toistaiseksi userID:ksi suoraan 1, mutta myöhemmin on tarve hakea käyttäjä oikeasti
-$userID = 1; // TODO: hae myöhemmin kirjautuneelta käyttäjältä
+// Käyttäjä on toistaiseksi kiinteästi määritelty
+// TODO: Haetaan käyttäjä kirjautuneen käyttäjän perusteella
+$userID = 1; 
 
 $sql = "
 SELECT
@@ -35,11 +29,10 @@ $stmt->execute([
     $userID
 ]);
 
-//käyttäjällä voi olla vain yksi aktiivinen kasvi, joten käytetään fetch(), joka
-//palauttaa vain yhden rivin
+// Käyttäjällä voi olla vain yksi aktiivinen kasvi, joten haetaan vain yksi rivi
 $currentPlant = $stmt->fetch(PDO::FETCH_ASSOC);
 
-//jos aktiivista kasvia ei vielä ole
+// Jos käyttäjällä ei vielä ole aktiivista kasvia, luodaan oletuskasvi
 if ($currentPlant === false) {
     $sqlInsert = "
     INSERT INTO CURRENTPLANT
@@ -60,7 +53,5 @@ if ($currentPlant === false) {
 
     $currentPlant = $stmt->fetch(PDO::FETCH_ASSOC);
 }
-
-header("Content-Type: application/json");
 
 echo json_encode($currentPlant);

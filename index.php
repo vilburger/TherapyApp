@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/buttons.css">
     <link rel="stylesheet" href="css/tables.css">
-    <link rel="stylesheet" href="css/progress.css">
     <link rel="stylesheet" href="css/daily.css">
     <link rel="stylesheet" href="css/forms.css">
     <link rel="stylesheet" href="css/popup.css">

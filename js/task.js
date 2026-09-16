@@ -39,7 +39,7 @@ function completeTask(task) {
                 } else {
                         const randomMessage = messages[Math.floor(Math.random() * messages.length)];
                         messageElement.textContent = randomMessage;
-                        popup.style.display = "flex";
+                        successPopup.style.display = "flex";
                         document.body.classList.add("popup-open");
                    
                 }

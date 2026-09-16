@@ -193,7 +193,7 @@
     }
 
     .navbar li a,
-    .garden-link {
+    #gardenButton {
         padding: 10px 8px;
         font-size: 14px;
     }

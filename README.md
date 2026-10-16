@@ -14,10 +14,20 @@ Opinnäytetyöprojekti, jonka aiheena pelillistetty terapiasovellus. Sovellus on
 - CSS
 - JavaScript
 - PHP
-- MySQL?
+- MariaDB (hallinta phpMyAdmin)
+
+## Käyttöönotto
+1. Kloonaa repository
+2. Luo tietokanta
+3. Luo tietokantarakenne SQL-tiedostoista
+4. Määritä tietokantayhteys
+5. Käynnistä sovellus paikallisessa ympäristössä
 
 ## Kehityksen tila
-Projektin kehitys on käynnissä.
+Projektin alustava kehitys on saatu loppuun ja opinnäytetyö valmiiksi. Projekti on valmiina jatkokehitykseen.
 
-## Dokumentaatio
-Suunnitteludokumentaatio, wireframet, kaaviot ja muut projektimateriaalit säilytetään OneDrivessa.
+## Jatkokehityskohteita
+- käyttäjähallinta
+- tietoturvan vahvistaminen
+- terapeuttinäkymän kehittäminen
+- ilmoitus- ja muistutustoiminnot
